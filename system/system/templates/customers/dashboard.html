@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+  <h2>📋 Last 5 Customers</h2>
+
+  {% if object_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Contact Person</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in object_list %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.contact_person }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No customers yet.</p>
+  {% endif %}
+
+  <div style="margin-top: 1.5rem;">
+    <a href="{% url 'customer-list' %}" class="button">👁 View All Customers</a>
+    <a href="{% url 'customer-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Customer</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <h2>Welcome, {{ request.user.username }}!</h2>
+    <a href="{% url 'product-dashboard' %}" class="button">📦 Products</a>
+    <a href="{% url 'customer-dashboard' %}" class="button">📁 Manage Customers</a>
+    <a href="{% url 'invoice-dashboard' %}" class="button">🧾 Invoices</a>
+
+{% endblock %}

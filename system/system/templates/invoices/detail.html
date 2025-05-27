@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Invoice {{ object.number }}{% endblock %}
+
+{% block content %}
+  <div style="margin-bottom:1rem;">
+      <a href="{% url 'invoice-list' %}" class="button">← Back to list</a>
+      <a href="{% url 'invoice-edit' object.pk %}" class="button" style="margin-left:.5rem;">✏️ Edit</a>
+      <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
+      <a href="{% url 'invoice-pdf' object.pk %}" class="button" style="margin-left:.5rem;">⇩ PDF</a>
+  </div>
+
+  <h2>Invoice {{ object.number }}</h2>
+
+  {% include "invoices/pdf.html" with embedded=True %}
+{% endblock %}

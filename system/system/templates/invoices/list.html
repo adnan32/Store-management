@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Invoices{% endblock %}
+{% block content %}
+  <div style="margin-bottom:1rem;">
+      <a href="{% url 'invoice-dashboard' %}" class="button">← Back to dashboard</a>
+      <a href="{% url 'invoice-add' %}" class="button" style="margin-left:.5rem;">➕ New invoice</a>
+  </div>
+<h2>📑 Invoices</h2>
+<a href="{% url 'invoice-add' %}" class="button">➕ New Invoice</a>
+<table>
+  <tr><th>No.</th><th>Customer</th><th>Issue</th><th>Total</th><th></th></tr>
+  {% for inv in object_list %}
+    <tr>
+      <td>{{ inv.number }}</td>
+      <td>{{ inv.customer.name }}</td>
+      <td>{{ inv.issue_date }}</td>
+      <td>{{ inv.total_inc_vat }} kr</td>
+      <td><a href="{% url 'invoice-detail' inv.pk %}" class="button">View</a></td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5">No invoices yet.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

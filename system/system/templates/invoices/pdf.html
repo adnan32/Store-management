@@ -1,0 +1,108 @@
+{% comment %}
+PDF template for a single invoice.
+Context expected:
+  invoice  –  Invoice instance
+  company  –  CompanyProfile (your own firm’s data)
+  embedded –  optional flag (True when included inside detail.html)
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Invoice {{ invoice.number }}</title>
+
+  {# —- basic PDF-friendly styling —- #}
+  <style>
+    body      { font-family: "DejaVu Sans", sans-serif; font-size: 12px; margin: 0 2cm; }
+    h1        { margin: 0; font-size: 22px; }
+    table     { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td    { padding: 6px 4px; border-bottom: 1px solid #aaa; }
+    th        { background: #f0f0f0; text-align: left; }
+    .totals   { margin-top: 1rem; width: 40%; float: right; }
+    .totals td{ border: none; }
+    .right    { text-align: right; }
+    .logo     { font-size: 28px; font-weight: 700; color: #555; }
+    footer    { position: fixed; bottom: 1cm; left: 2cm; right: 2cm; font-size: 10px; border-top: 1px solid #aaa; padding-top: 4px; }
+  </style>
+</head>
+<body>
+
+  {# ───────── header ───────── #}
+  <table>
+    <tr>
+      <td style="width: 60%;">
+        <div class="logo">{{ company.name }}</div>
+        <p>
+          Org-nr: {{ company.org_number }}<br>
+          {{ company.address|linebreaksbr }}<br>
+          Tel: {{ company.phone }}  E-mail: {{ company.email }}
+        </p>
+      </td>
+      <td>
+        <h1>Invoice</h1>
+        <table>
+          <tr><td class="right">No:</td><td>{{ invoice.number }}</td></tr>
+          <tr><td class="right">Date:</td><td>{{ invoice.issue_date }}</td></tr>
+          <tr><td class="right">Due:</td><td>{{ invoice.due_date }}</td></tr>
+          <tr><td class="right">VAT mode:</td><td>{{ invoice.get_vat_mode_display }}</td></tr>
+          <tr><td class="right">VAT rate:</td><td>{{ invoice.vat_rate }} %</td></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  {# ───────── Bill-to ───────── #}
+  <h3>Bill to:</h3>
+  <p>
+    <strong>{{ invoice.customer.name }}</strong><br>
+    {% if invoice.customer.vat_number %}VAT/Org-nr: {{ invoice.customer.vat_number }}<br>{% endif %}
+    {{ invoice.customer.billing_address|linebreaksbr }}<br>
+    {{ invoice.customer.phone }}  {{ invoice.customer.email }}
+  </p>
+
+  {# ───────── Lines ───────── #}
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th class="right">Qty</th>
+        <th class="right">Unit price</th>
+        <th class="right">Line total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in invoice.lines.all %}
+        <tr>
+          <td>{{ line.product_name }} {% if line.product_model %}({{ line.product_model }}){% endif %}
+              {% if line.description %}— {{ line.description }}{% endif %}</td>
+          <td class="right">{{ line.quantity }}</td>
+          <td class="right">{{ line.unit_price }} kr</td>
+          <td class="right">{{ line.total_ex_vat }} kr</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {# ───────── totals ───────── #}
+  <table class="totals">
+    <tr>
+      <td class="right"><strong>Subtotal:</strong></td>
+      <td class="right">{{ invoice.total_ex_vat }} kr</td>
+    </tr>
+    <tr>
+      <td class="right"><strong>VAT ({{ invoice.vat_rate }} %):</strong></td>
+      <td class="right">{{ invoice.vat_total }} kr</td>
+    </tr>
+    <tr>
+      <td class="right"><strong>Total:</strong></td>
+      <td class="right"><strong>{{ invoice.total_inc_vat }} kr</strong></td>
+    </tr>
+  </table>
+
+  {# ───────── footer ───────── #}
+  <footer>
+    Thank you for your business!— Invoice {{ invoice.number }} • {{ company.name }} • {{ company.email }}
+  </footer>
+
+</body>
+</html>

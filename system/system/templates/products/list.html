@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}All Products{% endblock %}
+
+{% block content %}
+  <div style="margin-bottom: 1rem;">
+    <a href="/" class="button">← Back to Home</a>
+    <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
+  </div>
+
+  <h2>📦 Product Inventory</h2>
+
+  {% if object_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Model</th>
+          <th>Category</th>
+          <th>Available</th>
+          <th>Sell Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in object_list %}
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.model }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.available_qty }}</td>
+            <td>{{ product.selling_price }} kr</td>
+            <td>
+              <a href="{% url 'product-edit' product.pk %}" class="button">✏️ Edit</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No products found.</p>
+  {% endif %}
+
+  {% if is_paginated %}
+    <div style="margin-top: 1rem;">
+      {% if page_obj.has_previous %}
+        <a class="button" href="?page={{ page_obj.previous_page_number }}">« Previous</a>
+      {% endif %}
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      {% if page_obj.has_next %}
+        <a class="button" href="?page={{ page_obj.next_page_number }}">Next »</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

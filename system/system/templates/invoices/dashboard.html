@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Invoice Dashboard{% endblock %}
+{% block content %}
+  <div style="margin-bottom:1rem;">
+      <a href="/" class="button">← Home</a>
+  </div>
+<h2>🧾 Invoice dashboard</h2>
+<p>Total invoices: {{ count }}</p>
+
+<h3>Last 5</h3>
+<ul>
+  {% for inv in recent %}
+    <li><a href="{% url 'invoice-detail' inv.pk %}">{{ inv.number }}</a>
+        – {{ inv.customer.name }} – {{ inv.total_inc_vat }} kr</li>
+  {% empty %}
+    <li>No invoices yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'invoice-add' %}" class="button">➕ New invoice</a>
+<a href="{% url 'invoice-list' %}" class="button" style="margin-left:.5rem;">📋 All invoices</a>
+{% endblock %}

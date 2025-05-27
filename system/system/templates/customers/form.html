@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Customer{% endblock %}
+
+{% block content %}
+  <div style="margin-bottom: 1rem;">
+    <a href="{% url 'customer-dashboard' %}" class="button">← Back to Dashboard</a>
+    <a href="{% url 'customer-list' %}" class="button" style="margin-left: 0.5rem;">📋 All Customers</a>
+  </div>
+
+  <h2>{% if object %}✏️ Edit{% else %}➕ Add{% endif %} Customer</h2>
+
+  <form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+    
+    <div style="margin-bottom: 1rem;">
+      {{ form.name.label_tag }}<br>
+      {{ form.name }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.contact_person.label_tag }}<br>
+      {{ form.contact_person }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.phone.label_tag }}<br>
+      {{ form.phone }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.address.label_tag }}<br>
+      {{ form.address }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.vat_number.label_tag }}<br>
+      {{ form.vat_number }}
+    </div>
+
+    <button type="submit" class="button">💾 Save</button>
+  </form>
+{% endblock %}

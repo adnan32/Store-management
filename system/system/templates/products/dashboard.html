@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Product Dashboard{% endblock %}
+
+{% block content %}
+  <h2>📊 Product Dashboard</h2>
+
+  <p><strong>Total products:</strong> {{ total }}</p>
+
+  {% if low_stock %}
+    <h3>🚨 Low Stock</h3>
+    <ul>
+      {% for p in low_stock %}
+        <li>{{ p.name }} ({{ p.available_qty }} left)</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h3>🆕 Recently Added</h3>
+  {% if products %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Model</th>
+          <th>Available</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in products %}
+          <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.model }}</td>
+            <td>{{ p.available_qty }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No products yet.</p>
+  {% endif %}
+
+  <div style="margin-top: 1rem;">
+    <a href="{% url 'product-list' %}" class="button">📋 View All Products</a>
+    <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
+  </div>
+{% endblock %}

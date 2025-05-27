@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Invoice system{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+</head>
+<body>
+<header>
+  <h1><a href="/">Invoice System</a></h1>
+    <nav>
+    <a href="{% url 'customer-dashboard' %}" class="button">👥 Customers</a>
+    <a href="{% url 'product-dashboard' %}" class="button" style="margin-left:.5rem;">📦 Products</a>
+    <a href="{% url 'invoice-dashboard' %}" class="button">🧾 Invoices</a>
+    <a href="{% url 'logout' %}"         class="button" style="margin-left:.5rem;">🚪 Log out</a>
+
+</nav>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

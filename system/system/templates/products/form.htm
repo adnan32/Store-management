@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Product{% endblock %}
+
+{% block content %}
+  <div style="margin-bottom: 1rem;">
+    <a href="{% url 'product-list' %}" class="button">← Back to Products</a>
+  </div>
+
+  <h2>{% if object %}✏️ Edit{% else %}➕ Add{% endif %} Product</h2>
+
+  <form method="post" style="max-width: 600px;">
+    {% csrf_token %}
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.name.label_tag }}<br>
+      {{ form.name }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.model.label_tag }}<br>
+      {{ form.model }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.category.label_tag }}<br>
+      {{ form.category }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.available_qty.label_tag }}<br>
+      {{ form.available_qty }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.purchase_price.label_tag }}<br>
+      {{ form.purchase_price }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.selling_price.label_tag }}<br>
+      {{ form.selling_price }}
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      {{ form.supplier.label_tag }}<br>
+      {{ form.supplier }}
+    </div>
+
+    <button type="submit" class="button">💾 Save</button>
+  </form>
+{% endblock %}

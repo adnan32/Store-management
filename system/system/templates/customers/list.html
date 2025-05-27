@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}All Customers{% endblock %}
+
+{% block content %}
+  <div style="margin-bottom: 1rem;">
+    <a href="{% url 'customer-dashboard' %}" class="button">← Back to Dashboard</a>
+    <a href="{% url 'customer-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Customer</a>
+  </div>
+
+  <h2>📇 All Customers</h2>
+
+  <form method="get" style="margin-bottom: 1rem;">
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search by name, contact or VAT" style="width: 60%;">
+    <button type="submit" class="button">🔍 Search</button>
+  </form>
+
+  {% if object_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Contact Person</th>
+          <th>VAT / Org. Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in object_list %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.contact_person }}</td>
+            <td>{{ c.vat_number }}</td>
+            <td><a href="{% url 'customer-edit' c.pk %}" class="button">✏️ Edit</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No customers found.</p>
+  {% endif %}
+
+  {% if is_paginated %}
+    <div style="margin-top: 1rem;">
+      {% if page_obj.has_previous %}
+        <a class="button" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">« Previous</a>
+      {% endif %}
+
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+      {% if page_obj.has_next %}
+        <a class="button" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">Next »</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

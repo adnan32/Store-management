@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Invoice{% endblock %}
+
+{% block content %}
+  <!-- Back + context buttons -->
+  <div style="margin-bottom:1rem;">
+      <a href="{% url 'invoice-list' %}" class="button">← Back to list</a>
+      {% if object %}
+          <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
+      {% endif %}
+  </div>
+
+  <h2>{% if object %}✏️ Edit{% else %}➕ Add{% endif %} invoice</h2>
+
+  {% if object %}
+    <p><strong>Invoice&nbsp;No:</strong> {{ object.number }}</p>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <h3>Lines</h3>
+    {{ formset.management_form }}
+    <table>
+      <thead>
+        <tr><th>Product</th><th>Description</th><th>Qty</th><th>Unit price</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for f in formset %}
+          <tr>
+            <td>{{ f.product }}</td>
+            <td>{{ f.description }}</td>
+            <td>{{ f.quantity }}</td>
+            <td>{{ f.unit_price }}</td>
+            <td>{% if f.instance.pk %}{{ f.DELETE }} Delete{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button type="submit" class="button">💾 Save</button>
+  </form>
+{% endblock %}
