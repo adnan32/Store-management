@@ -41,4 +41,31 @@
 
     <button type="submit" class="button">💾 Save</button>
   </form>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  /* ── VAT rate hide/​show ─────────────────────────── */
+  const modeSelect = document.getElementById("id_vat_mode");
+  const rateWrap   = document.querySelector('label[for="id_vat_rate"]').parentElement;
+  function toggleRate() {
+      rateWrap.style.display = (modeSelect.value === "exc") ? "none" : "";
+  }
+  modeSelect.addEventListener("change", toggleRate);
+  toggleRate();
+
+  /* ── Auto due-date by payment term ───────────────── */
+  const term   = document.getElementById("id_payment_term");
+  const issue  = document.getElementById("id_issue_date");
+  const due    = document.getElementById("id_due_date");
+
+  function calcDue() {
+      if (!issue.value) return;                 // nothing until issue date picked
+      const d = new Date(issue.value);
+      d.setDate(d.getDate() + parseInt(term.value, 10));
+      due.value = d.toISOString().slice(0, 10); // yyyy-mm-dd
+  }
+  term .addEventListener("change", calcDue);
+  issue.addEventListener("change", calcDue);
+  calcDue();                                   // run once on load
+});
+</script>
 {% endblock %}

@@ -6,9 +6,13 @@ class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
         fields = [
-            "customer", "issue_date", "due_date",
+            "customer", "issue_date", "payment_term","due_date",
             "vat_mode", "vat_rate", "notes",
         ]
+        widgets = {
+            "issue_date": forms.DateInput(attrs={"type": "date"}),
+            "due_date":   forms.DateInput(attrs={"type": "date"}),
+        }
 
 LineFormset = inlineformset_factory(
     Invoice, InvoiceLine,

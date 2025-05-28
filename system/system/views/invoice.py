@@ -6,7 +6,7 @@ from django.http import HttpResponse
 #from weasyprint import HTML
 from ..models import Invoice, CompanyProfile
 from ..forms.invoice import InvoiceForm, LineFormset
-
+from django.utils import timezone
 class InvoiceListView(ListView):
     model = Invoice
     template_name = "invoices/list.html"
@@ -61,10 +61,16 @@ class InvoiceDeleteView(DeleteView):
     model = Invoice
     template_name = "invoices/confirm_delete.html"
     success_url   = reverse_lazy("invoice-list")
+    
 
 class InvoiceDetailView(DetailView):
-    model = Invoice
+    model         = Invoice
     template_name = "invoices/detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["company"] = CompanyProfile.objects.first()     # ← ★ add
+        return ctx
 
 class InvoicePDFView(DetailView):
     model = Invoice

@@ -9,9 +9,9 @@ class Customer(models.Model):
     address         = models.TextField(blank=True)
     vat_number      = models.CharField("VAT / Org-nr", max_length=50, blank=True)
     created_at      = models.DateTimeField(default=timezone.now, editable=False)
-
+    email           = models.EmailField(blank=True,null=True)
     class Meta:
-        ordering = ["-created_at"]          # newest first
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.name

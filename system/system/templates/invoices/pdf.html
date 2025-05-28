@@ -1,9 +1,9 @@
 {% comment %}
 PDF template for a single invoice.
 Context expected:
-  invoice  –  Invoice instance
-  company  –  CompanyProfile (your own firm’s data)
-  embedded –  optional flag (True when included inside detail.html)
+  invoice  – Invoice instance
+  company  – CompanyProfile (your own firm’s data)
+  embedded – optional flag (True when included inside detail.html)
 {% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@ Context expected:
   <meta charset="utf-8">
   <title>Invoice {{ invoice.number }}</title>
 
-  {# —- basic PDF-friendly styling —- #}
+  <!-- basic PDF-friendly styling -->
   <style>
     body      { font-family: "DejaVu Sans", sans-serif; font-size: 12px; margin: 0 2cm; }
     h1        { margin: 0; font-size: 22px; }
@@ -27,15 +27,17 @@ Context expected:
 </head>
 <body>
 
-  {# ───────── header ───────── #}
+  {# ───────── header (seller info) ───────── #}
   <table>
     <tr>
       <td style="width: 60%;">
         <div class="logo">{{ company.name }}</div>
         <p>
+          {% if company.contact_person %}Attn: {{ company.contact_person }}<br>{% endif %}
           Org-nr: {{ company.org_number }}<br>
           {{ company.address|linebreaksbr }}<br>
-          Tel: {{ company.phone }}  E-mail: {{ company.email }}
+          Tel: {{ company.phone }}<br>
+          E-mail: {{ company.email }}
         </p>
       </td>
       <td>
@@ -51,13 +53,15 @@ Context expected:
     </tr>
   </table>
 
-  {# ───────── Bill-to ───────── #}
+  {# ───────── Bill-to (customer info) ───────── #}
   <h3>Bill to:</h3>
   <p>
     <strong>{{ invoice.customer.name }}</strong><br>
+    {% if invoice.customer.contact_person %}Attn: {{ invoice.customer.contact_person }}<br>{% endif %}
     {% if invoice.customer.vat_number %}VAT/Org-nr: {{ invoice.customer.vat_number }}<br>{% endif %}
-    {{ invoice.customer.billing_address|linebreaksbr }}<br>
-    {{ invoice.customer.phone }}  {{ invoice.customer.email }}
+    {{ invoice.customer.address|linebreaksbr }}<br>
+    {% if invoice.customer.phone %}Tel: {{ invoice.customer.phone }}{% endif %}
+    {% if invoice.customer.email %}{% if invoice.customer.phone %}{% endif %}E-mail: {{ invoice.customer.email }}{% endif %}
   </p>
 
   {# ───────── Lines ───────── #}
@@ -66,15 +70,18 @@ Context expected:
       <tr>
         <th>Description</th>
         <th class="right">Qty</th>
-        <th class="right">Unit price</th>
-        <th class="right">Line total</th>
+        <th class="right">Unit&nbsp;price</th>
+        <th class="right">Line&nbsp;total</th>
       </tr>
     </thead>
     <tbody>
       {% for line in invoice.lines.all %}
         <tr>
-          <td>{{ line.product_name }} {% if line.product_model %}({{ line.product_model }}){% endif %}
-              {% if line.description %}— {{ line.description }}{% endif %}</td>
+          <td>
+            {{ line.product_name }}
+            {% if line.product_model %}({{ line.product_model }}){% endif %}
+            {% if line.description %}— {{ line.description }}{% endif %}
+          </td>
           <td class="right">{{ line.quantity }}</td>
           <td class="right">{{ line.unit_price }} kr</td>
           <td class="right">{{ line.total_ex_vat }} kr</td>
@@ -85,23 +92,14 @@ Context expected:
 
   {# ───────── totals ───────── #}
   <table class="totals">
-    <tr>
-      <td class="right"><strong>Subtotal:</strong></td>
-      <td class="right">{{ invoice.total_ex_vat }} kr</td>
-    </tr>
-    <tr>
-      <td class="right"><strong>VAT ({{ invoice.vat_rate }} %):</strong></td>
-      <td class="right">{{ invoice.vat_total }} kr</td>
-    </tr>
-    <tr>
-      <td class="right"><strong>Total:</strong></td>
-      <td class="right"><strong>{{ invoice.total_inc_vat }} kr</strong></td>
-    </tr>
+    <tr><td class="right"><strong>Subtotal:</strong></td><td class="right">{{ invoice.total_ex_vat }} kr</td></tr>
+    <tr><td class="right"><strong>VAT ({{ invoice.vat_rate }} %):</strong></td><td class="right">{{ invoice.vat_total }} kr</td></tr>
+    <tr><td class="right"><strong>Total:</strong></td><td class="right"><strong>{{ invoice.total_inc_vat }} kr</strong></td></tr>
   </table>
 
   {# ───────── footer ───────── #}
   <footer>
-    Thank you for your business!— Invoice {{ invoice.number }} • {{ company.name }} • {{ company.email }}
+    Thank you for your business! — Invoice {{ invoice.number }} • {{ company.name }} • {{ company.email }}
   </footer>
 
 </body>
