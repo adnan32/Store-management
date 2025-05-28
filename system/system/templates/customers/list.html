@@ -30,7 +30,10 @@
             <td>{{ c.name }}</td>
             <td>{{ c.contact_person }}</td>
             <td>{{ c.vat_number }}</td>
-            <td><a href="{% url 'customer-edit' c.pk %}" class="button">✏️ Edit</a></td>
+            <td>
+              <a href="{% url 'customer-edit' c.pk %}" class="button">✏️ Edit</a>
+              <a href="{% url 'customer-delete' c.pk %}" class="button is-danger" style="margin-left:0.25rem;">🗑 Delete</a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>

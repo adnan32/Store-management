@@ -11,7 +11,7 @@ class Invoice(models.Model):
     number      = models.CharField(max_length=30, unique=True)
     issue_date  = models.DateField(default=timezone.now)
     due_date    = models.DateField()
-    customer    = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    customer    = models.ForeignKey(Customer, on_delete=models.SET_NULL,null=True, blank=True,related_name="invoices")
     vat_mode    = models.CharField(max_length=3, choices=VAT_CHOICES, default=VAT_INCLUDED)
     vat_rate    = models.DecimalField(max_digits=5, decimal_places=2, default=25)
     notes       = models.TextField(blank=True)
@@ -34,7 +34,7 @@ class Invoice(models.Model):
 
 class InvoiceLine(models.Model):
     invoice       = models.ForeignKey(Invoice, related_name="lines", on_delete=models.CASCADE)
-    product       = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product       = models.ForeignKey(Product, on_delete=models.SET_NULL,null=True, blank=True,related_name="invoices")
     description   = models.CharField(max_length=255, blank=True)
     quantity      = models.PositiveIntegerField(default=1)
     unit_price    = models.DecimalField(max_digits=10, decimal_places=2)

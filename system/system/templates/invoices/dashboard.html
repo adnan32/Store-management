@@ -2,7 +2,7 @@
 {% block title %}Invoice Dashboard{% endblock %}
 {% block content %}
   <div style="margin-bottom:1rem;">
-      <a href="/" class="button">← Home</a>
+      <a href="{% url 'home' %}" class="button">🏠 Home</a>
   </div>
 <h2>🧾 Invoice dashboard</h2>
 <p>Total invoices: {{ count }}</p>

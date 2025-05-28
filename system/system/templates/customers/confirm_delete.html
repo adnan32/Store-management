@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Delete Customer{% endblock %}
+
+{% block content %}
+  <h2>🗑 Delete “{{ object.name }}”?</h2>
+  <p>All invoices associated with the customer you are about to delete will also be permanently removed. This action cannot be undone.</p>
+
+  <form method="post">{% csrf_token %}
+    <button type="submit" class="button is-danger">✅ Yes, delete</button>
+    <a href="{% url 'customer-list' %}" class="button">✖️ Cancel</a>
+  </form>
+{% endblock %}

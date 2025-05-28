@@ -1,9 +1,9 @@
 from django.urls import path
 from .views.customer import (
     CustomerDashboardView, CustomerListView,
-    CustomerCreateView, CustomerUpdateView,
+    CustomerCreateView, CustomerUpdateView,CustomerDeleteView, 
 )
-from .views.product import ProductListView, ProductCreateView, ProductUpdateView
+from .views.product import ProductListView, ProductCreateView,ProductDeleteView, ProductUpdateView
 from .views.product import ProductDashboardView
 from django.urls import path
 from .views.home import HomeView
@@ -18,9 +18,7 @@ urlpatterns = [
     path("customers/add/",      CustomerCreateView.as_view(),    name="customer-add"),
     path("customers/<int:pk>/edit/", CustomerUpdateView.as_view(), name="customer-edit"),
     path("",HomeView.as_view(),name="home"),
-    path("login/",
-         auth_views.LoginView.as_view(),
-         name="login-alias"),
+    path("login/",auth_views.LoginView.as_view(),name="login-alias"),
     path('products/', ProductListView.as_view(), name='product-list'),
     path('products/add/', ProductCreateView.as_view(), name='product-add'),
     path('products/<int:pk>/edit/', ProductUpdateView.as_view(), name='product-edit'),
@@ -32,4 +30,6 @@ urlpatterns = [
     path("invoices/<int:pk>/delete/", InvoiceDeleteView.as_view(), name="invoice-delete"),
     path("invoices/<int:pk>/pdf/",    InvoicePDFView.as_view(),    name="invoice-pdf"),
     path("invoices/dashboard/", InvoiceDashboardView.as_view(), name="invoice-dashboard"),
+    path("customers/<int:pk>/delete/",CustomerDeleteView.as_view(),name="customer-delete"),
+    path("products/<int:pk>/delete/", ProductDeleteView.as_view(),name="product-delete"),
 ]

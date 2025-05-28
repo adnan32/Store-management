@@ -3,7 +3,7 @@
 
 {% block content %}
   <div style="margin-bottom: 1rem;">
-    <a href="/" class="button">← Back to Home</a>
+    <a href="{% url 'product-dashboard' %}" class="button">← Back to Dashboard</a>
     <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
   </div>
 
@@ -30,7 +30,8 @@
             <td>{{ product.available_qty }}</td>
             <td>{{ product.selling_price }} kr</td>
             <td>
-              <a href="{% url 'product-edit' product.pk %}" class="button">✏️ Edit</a>
+            <a href="{% url 'product-edit' product.pk %}" class="button">✏️ Edit</a>
+            <a href="{% url 'product-delete' product.pk %}" class="button is-danger" style="margin-left:.25rem;">🗑 Delete</a>
             </td>
           </tr>
         {% endfor %}

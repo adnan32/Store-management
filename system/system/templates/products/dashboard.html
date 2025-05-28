@@ -2,8 +2,9 @@
 {% block title %}Product Dashboard{% endblock %}
 
 {% block content %}
+  
   <h2>📊 Product Dashboard</h2>
-
+  <a href="{% url 'home' %}" class="button">🏠 Home</a>
   <p><strong>Total products:</strong> {{ total }}</p>
 
   {% if low_stock %}
@@ -40,7 +41,7 @@
   {% endif %}
 
   <div style="margin-top: 1rem;">
-    <a href="{% url 'product-list' %}" class="button">📋 View All Products</a>
-    <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
+  <a href="{% url 'product-list' %}" class="button" style="margin-left:.5rem;">📋 All Products</a>
+  <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
   </div>
 {% endblock %}

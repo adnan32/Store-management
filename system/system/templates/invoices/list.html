@@ -15,7 +15,10 @@
       <td>{{ inv.customer.name }}</td>
       <td>{{ inv.issue_date }}</td>
       <td>{{ inv.total_inc_vat }} kr</td>
-      <td><a href="{% url 'invoice-detail' inv.pk %}" class="button">View</a></td>
+      <td>
+        <a href="{% url 'invoice-detail' inv.pk %}" class="button">View</a>
+        <a href="{% url 'invoice-delete' inv.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
+      </td>
     </tr>
   {% empty %}
     <tr><td colspan="5">No invoices yet.</td></tr>

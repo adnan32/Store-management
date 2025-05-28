@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Delete Product{% endblock %}
+{% block content %}
+  <h2>🗑 Delete “{{ object.name }}”?</h2>
+  <p>Invoices that reference this item will keep their rows but show no product.</p>
+
+  <form method="post">{% csrf_token %}
+    <button type="submit" class="button is-danger">✅ Yes, delete</button>
+    <a href="{% url 'product-list' %}" class="button">✖️ Cancel</a>
+  </form>
+{% endblock %}
