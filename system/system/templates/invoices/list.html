@@ -8,16 +8,31 @@
 <h2>📑 Invoices</h2>
 <a href="{% url 'invoice-add' %}" class="button">➕ New Invoice</a>
 <table>
-  <tr><th>No.</th><th>Customer</th><th>Issue</th><th>Total</th><th></th></tr>
+  <tr><th>No.</th><th>Customer</th><th>Issue</th><th>Total</th>      
+  <th>Paid</th><th></th></tr>
   {% for inv in object_list %}
     <tr>
       <td>{{ inv.number }}</td>
       <td>{{ inv.customer.name }}</td>
       <td>{{ inv.issue_date }}</td>
       <td>{{ inv.total_inc_vat }} kr</td>
+      <td>{% if inv.paid %}✅{% else %}❌{% endif %}</td>
       <td>
         <a href="{% url 'invoice-detail' inv.pk %}" class="button">View</a>
         <a href="{% url 'invoice-delete' inv.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
+        <form action="{% url 'invoice-toggle-paid' inv.pk %}"
+              method="post" style="display:inline;">
+            {% csrf_token %}
+            {% if inv.paid %}
+               <button class="button is-warning" style="margin-left:.25rem;">
+                   Mark unpaid
+               </button>
+            {% else %}
+               <button class="button is-success" style="margin-left:.25rem;">
+                   Mark paid
+               </button>
+            {% endif %}
+        </form>
       </td>
     </tr>
   {% empty %}

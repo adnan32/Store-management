@@ -10,6 +10,13 @@
   </div>
 
   <h2>Invoice {{ object.number }}</h2>
-
+  <h2>
+      Invoice {{ object.number }}
+      {% if object.paid %}
+         <span style="color:green;">(paid)</span>
+      {% else %}
+         <span style="color:#d00;">(unpaid)</span>
+      {% endif %}
+  </h2>
   {% include "invoices/pdf.html" with embedded=True %}
 {% endblock %}

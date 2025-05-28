@@ -27,7 +27,7 @@ class InvoiceLineInline(admin.TabularInline):
 
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ("number", "customer", "issue_date", "total_inc_vat")
+    list_display = ("number", "customer", "issue_date", "total_inc_vat", "paid")
     inlines = [InvoiceLineInline]
-
+    list_filter  = ("paid",)
 admin.site.register(CompanyProfile)

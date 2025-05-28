@@ -10,7 +10,7 @@ from .views.home import HomeView
 from django.contrib.auth import views as auth_views
 from .views.invoice import (
     InvoiceListView, InvoiceCreateView, InvoiceDetailView,
-    InvoiceUpdateView, InvoiceDeleteView, InvoicePDFView,InvoiceDashboardView
+    InvoiceUpdateView, InvoiceDeleteView, InvoicePDFView,InvoiceDashboardView,InvoiceTogglePaidView
 )
 urlpatterns = [
     path("customers/",          CustomerDashboardView.as_view(), name="customer-dashboard"),
@@ -32,4 +32,5 @@ urlpatterns = [
     path("invoices/dashboard/", InvoiceDashboardView.as_view(), name="invoice-dashboard"),
     path("customers/<int:pk>/delete/",CustomerDeleteView.as_view(),name="customer-delete"),
     path("products/<int:pk>/delete/", ProductDeleteView.as_view(),name="product-delete"),
+    path("invoices/<int:pk>/paid/",InvoiceTogglePaidView.as_view(),name="invoice-toggle-paid"),
 ]

@@ -6,7 +6,18 @@
   </div>
 <h2>🧾 Invoice dashboard</h2>
 <p>Total invoices: {{ count }}</p>
-
+{% if overdue_cnt %}
+  <h3 style="color:#d00;">⚠️ Overdue&nbsp;({{ overdue_cnt }})</h3>
+  <ul>
+    {% for inv in overdue %}
+      <li>
+        <strong>{{ inv.due_date }}</strong> –
+        <a href="{% url 'invoice-detail' inv.pk %}">{{ inv.number }}</a>
+        ({{ inv.customer.name }})
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
 <h3>Last 5</h3>
 <ul>
   {% for inv in recent %}

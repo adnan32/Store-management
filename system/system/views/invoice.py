@@ -7,6 +7,10 @@ from django.http import HttpResponse
 from ..models import Invoice, CompanyProfile
 from ..forms.invoice import InvoiceForm, LineFormset
 from django.utils import timezone
+from django.views import View
+from django.shortcuts import get_object_or_404, redirect
+
+
 class InvoiceListView(ListView):
     model = Invoice
     template_name = "invoices/list.html"
@@ -99,4 +103,18 @@ class InvoiceDashboardView(TemplateView):
         ctx = super().get_context_data(**kw)
         ctx["recent"] = Invoice.objects.order_by("-id")[:5]
         ctx["count"]  = Invoice.objects.count()
+        ctx["overdue"]  = (
+            Invoice.objects
+            .filter(paid=False, due_date__lt=timezone.now().date())
+            .order_by("due_date")
+        )
+        ctx["overdue_cnt"] = ctx["overdue"].count()
         return ctx
+
+class InvoiceTogglePaidView(View):
+    """Flip the paid flag then bounce back to the list."""
+    def post(self, request, pk):
+        inv = get_object_or_404(Invoice, pk=pk)
+        inv.paid = not inv.paid
+        inv.save(update_fields=["paid"])
+        return redirect("invoice-list")
