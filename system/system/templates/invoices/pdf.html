@@ -13,7 +13,7 @@ Context expected:
 
   <!-- basic PDF-friendly styling -->
   <style>
-    body      { font-family: "DejaVu Sans", sans-serif; font-size: 12px; margin: 0 2cm; }
+    body      { font-family: "DejaVu Sans", sans-serif; font-size: 10px; margin: 0 2cm; }
     h1        { margin: 0; font-size: 22px; }
     table     { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     th, td    { padding: 6px 4px; border-bottom: 1px solid #aaa; }
@@ -37,7 +37,10 @@ Context expected:
           Org-nr: {{ company.org_number }}<br>
           {{ company.address|linebreaksbr }}<br>
           Tel: {{ company.phone }}<br>
-          E-mail: {{ company.email }}
+          E-mail: {{ company.email }}<br>
+          {% if company.IBAN %}IBAN: {{ company.IBAN }}<br>{% endif %}
+          {% if company.Swish %}Swish: {{ company.Swish }}<br>{% endif %}
+          {% if company.Bankgiro %}Bankgiro: {{ company.Bankgiro }}{% endif %}
         </p>
       </td>
       <td>
@@ -46,15 +49,13 @@ Context expected:
           <tr><td class="right">No:</td><td>{{ invoice.number }}</td></tr>
           <tr><td class="right">Date:</td><td>{{ invoice.issue_date }}</td></tr>
           <tr><td class="right">Due:</td><td>{{ invoice.due_date }}</td></tr>
-          <tr><td class="right">VAT mode:</td><td>{{ invoice.get_vat_mode_display }}</td></tr>
-          <tr><td class="right">VAT rate:</td><td>{{ invoice.vat_rate }} %</td></tr>
         </table>
       </td>
     </tr>
   </table>
 
   {# ───────── Bill-to (customer info) ───────── #}
-  <h3>Bill to:</h3>
+  <h1>Bill to:</h1>
   <p>
     <strong>{{ invoice.customer.name }}</strong><br>
     {% if invoice.customer.contact_person %}Attn: {{ invoice.customer.contact_person }}<br>{% endif %}
@@ -99,7 +100,13 @@ Context expected:
 
   {# ───────── footer ───────── #}
   <footer>
-    Thank you for your business! — Invoice {{ invoice.number }} • {{ company.name }} • {{ company.email }}
+    Thank you for your business.&nbsp;Invoice&nbsp;{{ invoice.number }}
+    • {{ company.name }} • {{ company.email }}
+    <div class="pay-info">
+    {% if company.bankgiro %}Bankgiro&nbsp;{{ company.bankgiro }}{% endif %}
+    {% if company.swish %}{% if company.bankgiro %} • {% endif %}Swish&nbsp;{{ company.swish }}{% endif %}
+    {% if company.iban %}{% if company.bankgiro or company.swish %} • {% endif %}IBAN&nbsp;{{ company.iban }}{% endif %}
+    </div>
   </footer>
 
 </body>
