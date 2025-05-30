@@ -9,7 +9,7 @@ from django.urls import path
 from .views.home import HomeView
 from django.contrib.auth import views as auth_views
 from .views.invoice import (
-    InvoiceListView, InvoiceCreateView, InvoiceDetailView,
+    InvoiceListView, InvoiceCreateView, InvoiceDetailView,InvoiceSendView,
     InvoiceUpdateView, InvoiceDeleteView, InvoicePDFView,InvoiceDashboardView,InvoiceTogglePaidView
 )
 urlpatterns = [
@@ -33,4 +33,5 @@ urlpatterns = [
     path("customers/<int:pk>/delete/",CustomerDeleteView.as_view(),name="customer-delete"),
     path("products/<int:pk>/delete/", ProductDeleteView.as_view(),name="product-delete"),
     path("invoices/<int:pk>/paid/",InvoiceTogglePaidView.as_view(),name="invoice-toggle-paid"),
+    path("<int:pk>/send/", InvoiceSendView.as_view(), name="invoice-send"),
 ]

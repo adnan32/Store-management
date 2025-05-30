@@ -8,7 +8,14 @@
       <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
       <a href="{% url 'invoice-pdf' object.pk %}" class="button" style="margin-left:.5rem;">⇩ PDF</a>
   </div>
-
+  <p>
+    <form method="post" action="{% url 'invoice-send' object.pk %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">
+        Send to {{ object.customer.email }}
+      </button>
+    </form>
+  </p>
   
   {% include "invoices/pdf.html" with embedded=True %}
 {% endblock %}

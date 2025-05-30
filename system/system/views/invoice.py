@@ -11,11 +11,78 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 import subprocess
 from django.views.generic import TemplateView
-
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.mail import EmailMessage
+from django.conf import settings
+WKHTMLTOPDF_EXE = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
 class InvoiceListView(ListView):
     model = Invoice
     template_name = "invoices/list.html"
+class InvoiceSendView(View):
+    """
+    Generate the invoice PDF and email it to the customer
+    using the company’s email settings.
+    """
 
+    def post(self, request, pk):
+        invoice = Invoice.objects.get(pk=pk)
+        company = CompanyProfile.objects.first()
+
+        # 1. Render HTML to string
+        html_string = render_to_string(
+            "invoices/pdf.html",
+            {"invoice": invoice, "company": company}
+        )
+
+        # 2. Generate PDF via wkhtmltopdf
+        try:
+            proc = subprocess.Popen(
+                [WKHTMLTOPDF_EXE, "--quiet", "-", "-"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            pdf_bytes, error = proc.communicate(html_string.encode("utf-8"))
+            if proc.returncode != 0:
+                raise RuntimeError(error.decode())
+        except Exception as e:
+            # Log e in real life
+            return HttpResponse(
+                f"Could not generate PDF: {e}", status=500
+            )
+
+        # 3. Build email
+        subject = f"Invoice #{invoice.number} from {company.name}"
+        body = (
+            f"Dear {invoice.customer.name},\n\n"
+            f"Please find attached invoice #{invoice.number}.\n"
+            "Let us know if you have any questions.\n\n"
+            f"Best regards,\n{company.name}"
+        )
+        from_email = settings.DEFAULT_FROM_EMAIL  # e.g. "billing@yourcompany.com"
+        to_email = [invoice.customer.email]
+
+        email = EmailMessage(
+            subject=subject,
+            body=body,
+            from_email=from_email,
+            to=to_email,
+        )
+        email.attach(f"Invoice-{invoice.number}.pdf", pdf_bytes, "application/pdf")
+
+        # 4. Send it!
+        try:
+            email.send(fail_silently=False)
+        except Exception as e:
+            return HttpResponse(
+                f"Failed to send email: {e}", status=500
+            )
+
+        # 5. Redirect back with a success message
+        # (You can also use Django’s messages framework)
+        return HttpResponseRedirect(
+            reverse("invoice-detail", args=[invoice.pk])
+        )
 class InvoiceCreateView(CreateView):
     template_name = "invoices/form.html"
     form_class    = InvoiceForm
