@@ -3,13 +3,14 @@ from django.shortcuts import redirect, render
 from django.views.generic import (ListView, CreateView, UpdateView,
                                   DeleteView, DetailView)
 from django.http import HttpResponse
-#from weasyprint import HTML
 from ..models import Invoice, CompanyProfile
 from ..forms.invoice import InvoiceForm, LineFormset
 from django.utils import timezone
 from django.views import View
 from django.shortcuts import get_object_or_404, redirect
-
+from django.template.loader import render_to_string
+import subprocess
+from django.views.generic import TemplateView
 
 class InvoiceListView(ListView):
     model = Invoice
@@ -76,26 +77,45 @@ class InvoiceDetailView(DetailView):
         ctx["company"] = CompanyProfile.objects.first()     # ← ★ add
         return ctx
 
+WKHTMLTOPDF_EXE = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+
 class InvoicePDFView(DetailView):
     model = Invoice
 
     def get(self, request, *args, **kwargs):
-        try:
-            from weasyprint import HTML
-        except ImportError:
-            return HttpResponse(
-                "PDF engine not installed on this server.", status=501
-            )
         inv = self.get_object()
         company = CompanyProfile.objects.first()
-        html = render(request, "invoices/pdf.html", {"invoice": inv, "company": company}).content
-        pdf  = HTML(string=html.decode()).write_pdf()
-        resp = HttpResponse(pdf, content_type="application/pdf")
-        resp["Content-Disposition"] = f"attachment; filename=invoice_{inv.number}.pdf"
-        return resp
+        html_string = render_to_string("invoices/pdf.html", {
+            "invoice": inv,
+            "company": company,
+        })
+
+        # Use the full exe path here
+        try:
+            proc = subprocess.Popen(
+                [WKHTMLTOPDF_EXE, "--quiet", "-", "-"],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            pdf_bytes, err = proc.communicate(html_string.encode("utf-8"))
+            if proc.returncode != 0:
+                return HttpResponse(
+                    f"PDF generation failed:\n{err.decode('utf-8')}",
+                    status=500
+                )
+        except FileNotFoundError:
+            return HttpResponse(
+                f"Could not find wkhtmltopdf at {WKHTMLTOPDF_EXE}",
+                status=501
+            )
+
+        response = HttpResponse(pdf_bytes, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'attachment; filename="invoice_{inv.number}.pdf"'
+        )
+        return response
     
-# system/views/invoice.py  (add)
-from django.views.generic import TemplateView
 
 class InvoiceDashboardView(TemplateView):
     template_name = "invoices/dashboard.html"
