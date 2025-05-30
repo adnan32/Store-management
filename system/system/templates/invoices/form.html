@@ -20,24 +20,34 @@
     {% csrf_token %}
     {{ form.as_p }}
 
-    <h3>Lines</h3>
-    {{ formset.management_form }}
-    <table>
-      <thead>
-        <tr><th>Product</th><th>Description</th><th>Qty</th><th>Unit price</th><th></th></tr>
-      </thead>
-      <tbody>
-        {% for f in formset %}
-          <tr>
-            <td>{{ f.product }}</td>
-            <td>{{ f.description }}</td>
-            <td>{{ f.quantity }}</td>
-            <td>{{ f.unit_price }}</td>
-            <td>{% if f.instance.pk %}{{ f.DELETE }} Delete{% endif %}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+<h3>Lines</h3>
+{{ formset.management_form }}
+
+<table id="lines">
+  <thead>
+    <tr><th style="width:32%">Product</th>
+        <th style="width:26%">Description</th>
+        <th style="width:8%">Qty</th>
+        <th style="width:15%">Unit price</th>
+        <th style="width:4%"></th></tr>
+  </thead>
+  <tbody>
+    {# ── visible rows (existing + any validation redisplay) ── #}
+    {% for form in formset %}
+      <tr class="item-row">
+        {% include "invoices/line_row.html" with f=form %}
+      </tr>
+    {% endfor %}
+
+    {# ── empty template row (hidden) ── #}
+    <tr id="empty-row" class="item-row" style="display:none;">
+      {% include "invoices/line_row.html" with f=formset.empty_form %}
+    </tr>
+  </tbody>
+</table>
+
+<button type="button" class="button" id="add-line">➕ Add line</button>
+
 
     <button type="submit" class="button">💾 Save</button>
   </form>
@@ -58,14 +68,32 @@ document.addEventListener("DOMContentLoaded", function () {
   const due    = document.getElementById("id_due_date");
 
   function calcDue() {
-      if (!issue.value) return;                 // nothing until issue date picked
+      if (!issue.value) return;                
       const d = new Date(issue.value);
       d.setDate(d.getDate() + parseInt(term.value, 10));
-      due.value = d.toISOString().slice(0, 10); // yyyy-mm-dd
+      due.value = d.toISOString().slice(0, 10);
   }
   term .addEventListener("change", calcDue);
   issue.addEventListener("change", calcDue);
-  calcDue();                                   // run once on load
+  calcDue();                                   
 });
 </script>
+<script>
+/* ── add-line helper ------------------------------------------------------ */
+document.getElementById("add-line").addEventListener("click", () => {
+  const totalInput = document.getElementById("id_{{ formset.prefix }}-TOTAL_FORMS");
+  const tbody      = document.querySelector("#lines tbody");
+  const template   = document.getElementById("empty-row");
+
+  const newRow = template.cloneNode(true);
+  newRow.style.display = "";                      // make it visible
+
+  const index = parseInt(totalInput.value, 10);
+  newRow.innerHTML = newRow.innerHTML.replace(/__prefix__/g, index);
+
+  tbody.appendChild(newRow);
+  totalInput.value = index + 1;
+});
+</script>
+
 {% endblock %}

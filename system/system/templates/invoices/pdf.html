@@ -1,113 +1,116 @@
-{% comment %}
-PDF template for a single invoice.
-Context expected:
-  invoice  – Invoice instance
-  company  – CompanyProfile (your own firm’s data)
-  embedded – optional flag (True when included inside detail.html)
-{% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Invoice {{ invoice.number }}</title>
-
-  <!-- basic PDF-friendly styling -->
   <style>
-    body      { font-family: "DejaVu Sans", sans-serif; font-size: 10px; margin: 0 2cm; }
-    h1        { margin: 0; font-size: 22px; }
-    table     { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td    { padding: 6px 4px; border-bottom: 1px solid #aaa; }
-    th        { background: #f0f0f0; text-align: left; }
-    .totals   { margin-top: 1rem; width: 40%; float: right; }
-    .totals td{ border: none; }
-    .right    { text-align: right; }
-    .logo     { font-size: 28px; font-weight: 700; color: #555; }
-    footer    { position: fixed; bottom: 1cm; left: 2cm; right: 2cm; font-size: 10px; border-top: 1px solid #aaa; padding-top: 4px; }
+    @page { margin: 2cm; }
+    body { font-family: "DejaVu Sans", sans-serif; font-size: 10pt; color: #222; margin: 0; }
+    h1, h2, h3 { margin: 0 0 0.5rem 0; }
+    .header-table { width: 100%; margin-bottom: 1rem; }
+    .logo { font-size: 32pt; font-weight: 700; color: #333; }
+    .contact-details { font-size: 8pt; line-height: 1.2; color: #555; }
+    .invoice-meta { float: right; font-size: 10pt; }
+
+    table.items { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    table.items th, table.items td { padding: 6px 8px; border-bottom: 1px solid #ddd; }
+    table.items th { background: #f9f9f9; text-align: left; }
+    table.items tr:nth-child(even) { background: #fcfcfc; }
+    .right { text-align: right; }
+
+    table.totals { width: 40%; float: right; border-collapse: collapse; margin-top: 1rem; }
+    table.totals td { padding: 4px 6px; }
+    table.totals tr.total-row td { border-top: 2px solid #333; font-size: 12pt; font-weight: 700; }
+
+    .footer-note { clear: both; font-size: 8pt; color: #555; margin-top: 1rem; }
   </style>
 </head>
 <body>
 
-  {# ───────── header (seller info) ───────── #}
-  <table>
+  <!-- Header / Seller Info -->
+  <table class="header-table">
     <tr>
-      <td style="width: 60%;">
+      <td>
         <div class="logo">{{ company.name }}</div>
-        <p>
-          {% if company.contact_person %}Attn: {{ company.contact_person }}<br>{% endif %}
+        <div class="contact-details">
+          {% if company.contact_person %}Contact Person: {{ company.contact_person }}<br>{% endif %}
           Org-nr: {{ company.org_number }}<br>
           {{ company.address|linebreaksbr }}<br>
-          Tel: {{ company.phone }}<br>
-          E-mail: {{ company.email }}<br>
-          {% if company.IBAN %}IBAN: {{ company.IBAN }}<br>{% endif %}
-          {% if company.Swish %}Swish: {{ company.Swish }}<br>{% endif %}
+          Tel: {{ company.phone }} | E: {{ company.email }}<br>
+          {% if company.IBAN %}IBAN: {{ company.IBAN }} {% endif %}
+          {% if company.Swish %}Swish: {{ company.Swish }} {% endif %}
           {% if company.Bankgiro %}Bankgiro: {{ company.Bankgiro }}{% endif %}
-        </p>
+        </div>
       </td>
-      <td>
-        <h1>Invoice</h1>
-        <table>
-          <tr><td class="right">No:</td><td>{{ invoice.number }}</td></tr>
-          <tr><td class="right">Date:</td><td>{{ invoice.issue_date }}</td></tr>
-          <tr><td class="right">Due:</td><td>{{ invoice.due_date }}</td></tr>
-        </table>
+      <td class="invoice-meta">
+        <h2>INVOICE</h2>
+        No: {{ invoice.number }}<br>
+        Date: {{ invoice.issue_date }}<br>
+        Due: {{ invoice.due_date }}
       </td>
     </tr>
   </table>
 
-  {# ───────── Bill-to (customer info) ───────── #}
-  <h1>Bill to:</h1>
-  <p>
+  <!-- Bill To -->
+  <h5>BILL TO:</h5>
+  <div class="contact-details">
     <strong>{{ invoice.customer.name }}</strong><br>
-    {% if invoice.customer.contact_person %}Attn: {{ invoice.customer.contact_person }}<br>{% endif %}
+    {% if invoice.customer.contact_person %}Contact Person: {{ invoice.customer.contact_person }}<br>{% endif %}
     {% if invoice.customer.vat_number %}VAT/Org-nr: {{ invoice.customer.vat_number }}<br>{% endif %}
     {{ invoice.customer.address|linebreaksbr }}<br>
-    {% if invoice.customer.phone %}Tel: {{ invoice.customer.phone }}{% endif %}
-    {% if invoice.customer.email %}{% if invoice.customer.phone %}{% endif %}E-mail: {{ invoice.customer.email }}{% endif %}
-  </p>
+    {% if invoice.customer.phone %}Tel: {{ invoice.customer.phone }}<br>{% endif %}
+    {% if invoice.customer.email %}E: {{ invoice.customer.email }}{% endif %}
+  </div>
 
-  {# ───────── Lines ───────── #}
-  <table>
+  <!-- Items -->
+  <table class="items">
     <thead>
       <tr>
         <th>Description</th>
         <th class="right">Qty</th>
-        <th class="right">Unit&nbsp;price</th>
-        <th class="right">Line&nbsp;total</th>
+        <th class="right">Unit Price</th>
+        <th class="right">Line Total</th>
       </tr>
     </thead>
     <tbody>
       {% for line in invoice.lines.all %}
-        <tr>
-          <td>
-            {{ line.product_name }}
-            {% if line.product_model %}({{ line.product_model }}){% endif %}
-            {% if line.description %}— {{ line.description }}{% endif %}
-          </td>
-          <td class="right">{{ line.quantity }}</td>
-          <td class="right">{{ line.unit_price }} kr</td>
-          <td class="right">{{ line.total_ex_vat }} kr</td>
-        </tr>
+      <tr>
+        <td>
+          <strong>{{ line.product_name }}</strong>
+          {% if line.product_model %}<br><small>Model: {{ line.product_model }}</small>{% endif %}
+          {% if line.description %}<br><small>{{ line.description }}</small>{% endif %}
+        </td>
+        <td class="right">{{ line.quantity }}</td>
+        <td class="right">{{ line.unit_price }} kr</td>
+        <td class="right">{{ line.total_ex_vat }} kr</td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
 
-  {# ───────── totals ───────── #}
+  <!-- Totals -->
   <table class="totals">
-    <tr><td class="right"><strong>Subtotal:</strong></td><td class="right">{{ invoice.total_ex_vat }} kr</td></tr>
-    <tr><td class="right"><strong>VAT ({{ invoice.vat_rate }} %):</strong></td><td class="right">{{ invoice.vat_total }} kr</td></tr>
-    <tr><td class="right"><strong>Total:</strong></td><td class="right"><strong>{{ invoice.total_inc_vat }} kr</strong></td></tr>
+    <tr><td>Subtotal:</td><td class="right">{{ invoice.total_ex_vat }} kr</td></tr>
+    <tr><td>VAT ({{ invoice.vat_rate }}%):</td><td class="right">{{ invoice.vat_total }} kr</td></tr>
+    <tr class="total-row"><td>TOTAL:</td><td class="right">{{ invoice.total_inc_vat }} kr</td></tr>
   </table>
-
-  {# ───────── footer ───────── #}
-  <footer>
-    Thank you for your business.&nbsp;Invoice&nbsp;{{ invoice.number }}
-    • {{ company.name }} • {{ company.email }}
-    <div class="pay-info">
-    {% if company.bankgiro %}Bankgiro&nbsp;{{ company.bankgiro }}{% endif %}
-    {% if company.swish %}{% if company.bankgiro %} • {% endif %}Swish&nbsp;{{ company.swish }}{% endif %}
-    {% if company.iban %}{% if company.bankgiro or company.swish %} • {% endif %}IBAN&nbsp;{{ company.iban }}{% endif %}
+  <div class="footer-note">
+    Invoice {{ invoice.number }} (paid)
+  </div>
+  <!-- Footer Note -->
+ <footer>
+    <div>Thank you for your business.</div>
+    <div class="payment-info">
+      {% if company.bankgiro %}Bankgiro: {{ company.bankgiro }}{% endif %}
+      {% if company.swish %}{% if company.bankgiro %} • {% endif %}Swish: {{ company.swish }}{% endif %}
+      {% if company.iban %}{% if company.bankgiro or company.swish %} • {% endif %}IBAN: {{ company.iban }}{% endif %}
     </div>
+    <div>{{ company.name }} &nbsp;|&nbsp; {{ company.email }} &nbsp;|&nbsp; {{ company.phone }}</div>
   </footer>
 
 </body>
 </html>
+
+
+
+
+
+ 

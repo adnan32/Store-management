@@ -2,9 +2,9 @@
 {% block title %}Product Dashboard{% endblock %}
 
 {% block content %}
-  
-  <h2>📊 Product Dashboard</h2>
   <a href="{% url 'home' %}" class="button">🏠 Home</a>
+  <h2>📊 Product Dashboard</h2>
+  
   <p><strong>Total products:</strong> {{ total }}</p>
 
   {% if low_stock %}

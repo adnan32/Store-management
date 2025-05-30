@@ -1,0 +1,10 @@
+{# expects variable “f” = one inline form (may be empty_form) #}
+<td>{{ f.product }}</td>
+<td>{{ f.description }}</td>
+<td>{{ f.quantity }}</td>
+<td>{{ f.unit_price }}</td>
+<td>
+  {% if f.instance.pk %}
+     {{ f.DELETE }} ❌
+  {% endif %}
+</td>
