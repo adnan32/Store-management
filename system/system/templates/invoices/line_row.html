@@ -1,10 +1,17 @@
-{# expects variable “f” = one inline form (may be empty_form) #}
-<td>{{ f.product }}</td>
-<td>{{ f.description }}</td>
-<td>{{ f.quantity }}</td>
-<td>{{ f.unit_price }}</td>
+{# expects variable “f” = one inline form #}
+
+{# hidden fields FIRST — especially “id” #}
+{% for h in f.hidden_fields %}{{ h }}{% endfor %}
+{# optional: show row-level errors  #}
+{{ f.non_field_errors }}
+
+<td>{{ f.product.errors }}{{ f.product }}</td>
+<td>{{ f.description.errors }}{{ f.description }}</td>
+<td>{{ f.quantity.errors }}{{ f.quantity }}</td>
+<td>{{ f.unit_price.errors }}{{ f.unit_price }}</td>
 <td>
   {% if f.instance.pk %}
      {{ f.DELETE }} ❌
   {% endif %}
 </td>
+
