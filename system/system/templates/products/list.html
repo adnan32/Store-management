@@ -8,7 +8,21 @@
   </div>
 
   <h2>📦 Product Inventory</h2>
+  <!-- ── filter bar ─────────────────────────────────────────────── -->
+  <form method="get" style="margin-bottom:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+    <input type="text" name="q" placeholder="Search name / model"
+          value="{{ request.GET.q }}" style="flex:1 1 200px;">
 
+    <input type="number" step="0.01" name="min_price" placeholder="Min price"
+          value="{{ request.GET.min_price }}" style="width:90px;">
+    <input type="number" step="0.01" name="max_price" placeholder="Max price"
+          value="{{ request.GET.max_price }}" style="width:90px;">
+
+    <button class="button">Filter</button>
+    {% if request.GET %}
+      <a href="{% url 'product-list' %}" class="button">Reset</a>
+    {% endif %}
+  </form>
   {% if object_list %}
     <table>
       <thead>

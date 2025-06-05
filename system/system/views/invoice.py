@@ -3,7 +3,8 @@ from django.shortcuts import redirect, render
 from django.views.generic import (ListView, CreateView, UpdateView,
                                   DeleteView, DetailView)
 from django.http import HttpResponse
-from ..models import Invoice, CompanyProfile
+from django.db.models import Q
+from ..models import Invoice, CompanyProfile, Customer
 from ..forms.invoice import InvoiceForm, LineFormset
 from django.utils import timezone
 from django.views import View
@@ -18,6 +19,45 @@ WKHTMLTOPDF_EXE = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
 class InvoiceListView(ListView):
     model = Invoice
     template_name = "invoices/list.html"
+    paginate_by   = 25         
+    def get_queryset(self):
+
+        qs = (super()
+                .get_queryset()
+                .select_related("customer")
+                .order_by("-issue_date", "-id"))
+
+        q = self.request.GET.get("q")
+        if q:
+            qs = qs.filter(
+                Q(number__icontains=q) |
+                Q(customer__name__icontains=q)
+            )
+
+        cust = self.request.GET.get("customer")
+        if cust:
+            qs = qs.filter(customer__id=cust)
+
+        d_from = self.request.GET.get("from")
+        d_to   = self.request.GET.get("to")
+        if d_from:
+            qs = qs.filter(issue_date__gte=d_from)
+        if d_to:
+            qs = qs.filter(issue_date__lte=d_to)
+
+        paid = self.request.GET.get("paid")
+        if paid == "yes":
+            qs = qs.filter(paid=True)
+        elif paid == "no":
+            qs = qs.filter(paid=False)
+
+        return qs
+
+    def get_context_data(self, **kw):
+        ctx = super().get_context_data(**kw)
+        # list of customers for the dropdown
+        ctx["customers"] = Customer.objects.order_by("name")
+        return ctx
 class InvoiceSendView(View):
     """
     Generate the invoice PDF and email it to the customer
@@ -107,7 +147,7 @@ class InvoiceCreateView(CreateView):
 
     def _next_number(self):
         last = Invoice.objects.order_by("-id").first()
-        return f"{(last.id if last else 0)+1:06d}"
+        return f"{(last.id if last else 0),1:06d}"
 
 class InvoiceUpdateView(UpdateView):
     model = Invoice

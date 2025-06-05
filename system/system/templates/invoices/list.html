@@ -6,7 +6,32 @@
       <a href="{% url 'invoice-add' %}" class="button" style="margin-left:.5rem;">➕ New invoice</a>
   </div>
 <h2>📑 Invoices</h2>
-<a href="{% url 'invoice-add' %}" class="button">➕ New Invoice</a>
+<form method="get" class="filters" style="margin-bottom:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+  <input type="text" name="q" placeholder="Search number or customer"
+         value="{{ request.GET.q }}" style="flex:1 1 180px;">
+
+  <select name="customer">
+      <option value="">All customers</option>
+      {% for c in customers %}
+        <option value="{{ c.id }}"
+                {% if request.GET.customer == c.id|stringformat:"s" %}selected{% endif %}>
+            {{ c.name }}
+        </option>
+      {% endfor %}
+  </select>
+
+  <input type="date" name="from" value="{{ request.GET.from }}">
+  <input type="date" name="to"   value="{{ request.GET.to }}">
+
+  <select name="paid">
+     <option value="">Paid &amp; unpaid</option>
+     <option value="yes" {% if request.GET.paid == "yes" %}selected{% endif %}>Paid</option>
+     <option value="no"  {% if request.GET.paid == "no"  %}selected{% endif %}>Unpaid</option>
+  </select>
+
+  <button class="button">Filter</button>
+  {% if request.GET %}<a href="{% url 'invoice-list' %}" class="button">Reset</a>{% endif %}
+</form>
 <table>
   <tr><th>No.</th><th>Customer</th><th>Issue</th><th>Total</th>      
   <th>Paid</th><th></th></tr>
