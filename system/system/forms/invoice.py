@@ -7,7 +7,7 @@ class InvoiceForm(forms.ModelForm):
         model = Invoice
         fields = [
             "customer", "issue_date", "payment_term","due_date",
-            "vat_mode", "vat_rate", "notes","paid",
+            "vat_mode", "vat_rate", "notes","paid","VMB",
         ]
         widgets = {
             "issue_date": forms.DateInput(attrs={"type": "date"}),

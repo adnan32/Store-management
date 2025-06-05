@@ -147,7 +147,7 @@ class InvoiceCreateView(CreateView):
 
     def _next_number(self):
         last = Invoice.objects.order_by("-id").first()
-        return f"{(last.id if last else 0),1:06d}"
+        return f"{(last.id if last else 0)+1:06d}"
 
 class InvoiceUpdateView(UpdateView):
     model = Invoice
@@ -174,7 +174,6 @@ class InvoiceDeleteView(DeleteView):
     template_name = "invoices/confirm_delete.html"
     success_url   = reverse_lazy("invoice-list")
     
-
 class InvoiceDetailView(DetailView):
     model         = Invoice
     template_name = "invoices/detail.html"
@@ -223,7 +222,6 @@ class InvoicePDFView(DetailView):
         )
         return response
     
-
 class InvoiceDashboardView(TemplateView):
     template_name = "invoices/dashboard.html"
     def get_context_data(self, **kw):

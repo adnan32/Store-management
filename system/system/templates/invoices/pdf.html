@@ -85,7 +85,12 @@
       {% endfor %}
     </tbody>
   </table>
-
+  
+  {% if invoice.VMB %}
+    <p style="margin-top:1rem; font-weight:700;">
+        VMB-regeln tillämpas
+    </p>
+  {% endif %}
   <!-- Totals -->
   <table class="totals">
     <tr><td>Subtotal:</td><td class="right">{{ invoice.total_ex_vat }} kr</td></tr>

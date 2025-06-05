@@ -37,6 +37,9 @@ class Invoice(models.Model):
     paid          = models.BooleanField(
                         default=False,
                         help_text="Tick when full payment has been received.")
+    VMB           = models.BooleanField(
+                        default=False,
+                        help_text="VMB?")
 
     # optional link when this invoice is a “Reminder”
     reminder_of   = models.ForeignKey(
