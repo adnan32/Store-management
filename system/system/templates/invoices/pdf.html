@@ -105,8 +105,8 @@
     <div>Thank you for your business.</div>
     <div class="payment-info">
       {% if company.bankgiro %}Bankgiro: {{ company.bankgiro }}{% endif %}
-      {% if company.swish %}{% if company.bankgiro %} • {% endif %}Swish: {{ company.swish }}{% endif %}
-      {% if company.iban %}{% if company.bankgiro or company.swish %} • {% endif %}IBAN: {{ company.iban }}{% endif %}
+      {% if company.swish %}{% if company.bankgiro %}{% endif %}Swish: {{ company.swish }}{% endif %}
+      {% if company.iban %}{% if company.bankgiro or company.swish %}{% endif %}IBAN: {{ company.iban }}{% endif %}
     </div>
     <div>{{ company.name }} &nbsp;|&nbsp; {{ company.email }} &nbsp;|&nbsp; {{ company.phone }}</div>
   </footer>
