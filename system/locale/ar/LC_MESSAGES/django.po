@@ -1,0 +1,628 @@
+# Headers
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-21 01:46+0200\n"
+"PO-Revision-Date: 2025-08-21 01:30+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: .\system\apps.py:11
+msgid "Invoice System — Admin"
+msgstr "نظام الفواتير — الإدارة"
+
+#: .\system\apps.py:12
+msgid "Administration"
+msgstr "الإدارة"
+
+#: .\system\apps.py:13
+msgid "Invoice Admin"
+msgstr "إدارة الفواتير"
+
+#: .\system\models\customer.py:6
+msgid "Company name"
+msgstr "اسم الشركة"
+
+#: .\system\models\customer.py:7
+msgid "Contact person"
+msgstr "الشخص المسؤول"
+
+#: .\system\models\customer.py:8
+msgid "Phone"
+msgstr "الهاتف"
+
+#: .\system\models\customer.py:9
+msgid "Address"
+msgstr "العنوان"
+
+#: .\system\models\customer.py:10 .\system\templates\customers\list.html:25
+msgid "VAT / Org. Number"
+msgstr "الضريبة / رقم المؤسسة"
+
+#: .\system\models\customer.py:12
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: .\system\models\product.py:4 .\system\templates\products\dashboard.html:28
+#: .\system\templates\products\list.html:31
+msgid "Name"
+msgstr "الاسم"
+
+#: .\system\models\product.py:5 .\system\templates\products\dashboard.html:29
+#: .\system\templates\products\list.html:32
+msgid "Model"
+msgstr "الموديل"
+
+#: .\system\models\product.py:6 .\system\templates\products\list.html:33
+msgid "Category"
+msgstr "الفئة"
+
+#: .\system\models\product.py:7
+msgid "Available quantity"
+msgstr "المتوفر"
+
+#: .\system\models\product.py:8
+msgid "Purchase Price"
+msgstr "سعر الشراء"
+
+#: .\system\models\product.py:9
+msgid "Selling Price"
+msgstr "سعر البيع"
+
+#: .\system\models\product.py:10
+msgid "Supplier"
+msgstr "مزود"
+
+#: .\system\templates\base.html:8 .\system\templates\base.html:13
+msgid "Invoice System"
+msgstr "نظام الفواتير"
+
+#: .\system\templates\base.html:15
+msgid "Customers"
+msgstr "العملاء"
+
+#: .\system\templates\base.html:16 .\system\templates\home.html:8
+msgid "Products"
+msgstr "المنتجات"
+
+#: .\system\templates\base.html:17 .\system\templates\home.html:10
+#: .\system\templates\invoices\list.html:3
+#: .\system\templates\invoices\list.html:9
+msgid "Invoices"
+msgstr "الفواتير"
+
+#: .\system\templates\base.html:18
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+#: .\system\templates\base.html:30
+msgid "Change"
+msgstr "تغيير"
+
+#: .\system\templates\customers\confirm_delete.html:4
+msgid "Delete Customer"
+msgstr "حذف العميل"
+
+#: .\system\templates\customers\confirm_delete.html:7
+#, python-format
+msgid "Delete “%(object.name)s”?"
+msgstr "حذف «%(object.name)s»؟"
+
+#: .\system\templates\customers\confirm_delete.html:8
+msgid ""
+"All invoices associated with the customer you are about to delete will also "
+"be permanently removed. This action cannot be undone."
+msgstr ""
+"ستُحذف نهائيًا جميع الفواتير المرتبطة بالعميل الذي على وشك حذفه. هذا الإجراء "
+"غير قابل للتراجع."
+
+#: .\system\templates\customers\confirm_delete.html:11
+#: .\system\templates\invoices\confirm_delete.html:15
+#: .\system\templates\products\confirm_delete.html:10
+msgid "Yes, delete"
+msgstr "نعم، احذف"
+
+#: .\system\templates\customers\confirm_delete.html:12
+#: .\system\templates\invoices\confirm_delete.html:7
+#: .\system\templates\products\confirm_delete.html:11
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: .\system\templates\customers\dashboard.html:4
+msgid "Customer Dashboard"
+msgstr "لوحة العملاء"
+
+#: .\system\templates\customers\dashboard.html:8 .\system\templates\home.html:4
+#: .\system\templates\invoices\dashboard.html:7
+#: .\system\templates\products\dashboard.html:6
+msgid "Home"
+msgstr "الرئيسية"
+
+#: .\system\templates\customers\dashboard.html:10
+msgid "Last 5 Customers"
+msgstr "آخر 5 عملاء"
+
+#: .\system\templates\customers\dashboard.html:16
+#: .\system\templates\customers\list.html:23
+msgid "Company Name"
+msgstr "اسم الشركة"
+
+#: .\system\templates\customers\dashboard.html:17
+#: .\system\templates\customers\list.html:24
+msgid "Contact Person"
+msgstr "الشخص المسؤول"
+
+#: .\system\templates\customers\dashboard.html:30
+msgid "No customers yet."
+msgstr "لا يوجد عملاء بعد."
+
+#: .\system\templates\customers\dashboard.html:34
+msgid "View All Customers"
+msgstr "عرض جميع العملاء"
+
+#: .\system\templates\customers\dashboard.html:35
+#: .\system\templates\customers\list.html:9
+msgid "Add Customer"
+msgstr "إضافة عميل"
+
+#: .\system\templates\customers\form.html:4
+#: .\system\templates\customers\form.html:12
+#: .\system\templates\customers\list.html:36
+#: .\system\templates\invoices\detail.html:9
+#: .\system\templates\invoices\form.html:3
+#: .\system\templates\invoices\form.html:14
+#: .\system\templates\products\form.html:3
+#: .\system\templates\products\form.html:10
+#: .\system\templates\products\list.html:48
+msgid "Edit"
+msgstr "تعديل"
+
+#: .\system\templates\customers\form.html:4
+#: .\system\templates\customers\form.html:12
+#: .\system\templates\invoices\form.html:3
+#: .\system\templates\invoices\form.html:14
+#: .\system\templates\products\form.html:3
+#: .\system\templates\products\form.html:10
+msgid "Add"
+msgstr "إضافة"
+
+#: .\system\templates\customers\form.html:4
+#: .\system\templates\customers\form.html:12
+#: .\system\templates\invoices\list.html:37
+msgid "Customer"
+msgstr "عميل"
+
+#: .\system\templates\customers\form.html:8
+#: .\system\templates\customers\list.html:8
+#: .\system\templates\products\list.html:7
+msgid "Back to Dashboard"
+msgstr "العودة إلى اللوحة"
+
+#: .\system\templates\customers\form.html:9
+#: .\system\templates\customers\list.html:4
+#: .\system\templates\customers\list.html:12
+msgid "All Customers"
+msgstr "جميع العملاء"
+
+#: .\system\templates\customers\form.html:45
+#: .\system\templates\invoices\form.html:52
+#: .\system\templates\products\form.html:50
+msgid "Save"
+msgstr "حفظ"
+
+#: .\system\templates\customers\list.html:15
+msgid "Search by name, contact or VAT"
+msgstr "ابحث بالاسم، المسؤول أو الرقم الضريبي"
+
+#: .\system\templates\customers\list.html:16
+msgid "Search"
+msgstr "ابحث"
+
+#: .\system\templates\customers\list.html:26
+#: .\system\templates\products\list.html:36
+msgid "Actions"
+msgstr "إجراءات"
+
+#: .\system\templates\customers\list.html:37
+#: .\system\templates\invoices\detail.html:10
+#: .\system\templates\invoices\form.html:10
+#: .\system\templates\invoices\list.html:48
+#: .\system\templates\products\list.html:49
+msgid "Delete"
+msgstr "حذف"
+
+#: .\system\templates\customers\list.html:44
+msgid "No customers found."
+msgstr "لا يوجد عملاء مطابقون."
+
+#: .\system\templates\customers\list.html:50
+#: .\system\templates\products\list.html:62
+msgid "Previous"
+msgstr "السابق"
+
+#: .\system\templates\customers\list.html:56
+#: .\system\templates\products\list.html:66
+msgid "Next"
+msgstr "التالي"
+
+#: .\system\templates\home.html:7
+#, python-format
+msgid "Welcome %(request.user.username)s!"
+msgstr ""
+
+#: .\system\templates\home.html:9
+msgid "Manage Customers"
+msgstr "العملاء"
+
+#: .\system\templates\invoices\confirm_delete.html:3
+#: .\system\templates\invoices\confirm_delete.html:10
+msgid "Delete Invoice"
+msgstr "حذف الفاتورة"
+
+#: .\system\templates\invoices\confirm_delete.html:11
+msgid ""
+"Are you sure you want to delete this invoice? This action cannot be undone."
+msgstr "هل أنت متأكد من حذف هذه الفاتورة؟ هذا الإجراء غير قابل للتراجع."
+
+#: .\system\templates\invoices\dashboard.html:4
+msgid "Invoice Dashboard"
+msgstr "لوحة الفواتير"
+
+#: .\system\templates\invoices\dashboard.html:9
+msgid "Invoice dashboard"
+msgstr "لوحة الفواتير"
+
+#: .\system\templates\invoices\dashboard.html:10
+#, python-format
+msgid "Total invoices: %(n)s"
+msgstr "إجمالي الفواتير: %(n)s"
+
+#: .\system\templates\invoices\dashboard.html:12
+#, python-format
+msgid "⚠️ Overdue&nbsp;(%(n)s)"
+msgstr "⚠️ متأخرات&nbsp;(%(n)s)"
+
+#: .\system\templates\invoices\dashboard.html:23
+msgid "Last 5"
+msgstr "آخر 5"
+
+#: .\system\templates\invoices\dashboard.html:29
+#: .\system\templates\invoices\list.html:65
+msgid "No invoices yet."
+msgstr "لا توجد فواتير بعد."
+
+#: .\system\templates\invoices\dashboard.html:33
+#: .\system\templates\invoices\list.html:7
+msgid "New invoice"
+msgstr "فاتورة جديدة"
+
+#: .\system\templates\invoices\dashboard.html:34
+msgid "All invoices"
+msgstr "جميع الفواتير"
+
+#: .\system\templates\invoices\detail.html:3
+#: .\system\templates\invoices\form.html:3
+msgid "Invoice"
+msgstr "فاتورة"
+
+#: .\system\templates\invoices\detail.html:8
+#: .\system\templates\invoices\form.html:8
+msgid "Back to list"
+msgstr "العودة إلى القائمة"
+
+#: .\system\templates\invoices\detail.html:11
+msgid "PDF"
+msgstr "PDF"
+
+#: .\system\templates\invoices\detail.html:18
+msgid "Send to"
+msgstr "إرسال إلى"
+
+#: .\system\templates\invoices\detail.html:24
+#: .\system\templates\invoices\detail.html:26
+msgid "Status:"
+msgstr "الحالة:"
+
+#: .\system\templates\invoices\detail.html:24
+#: .\system\templates\invoices\list.html:29
+#: .\system\templates\invoices\list.html:38
+msgid "Paid"
+msgstr "مدفوعة"
+
+#: .\system\templates\invoices\detail.html:26
+#: .\system\templates\invoices\list.html:30
+msgid "Unpaid"
+msgstr "غير مدفوعة"
+
+#: .\system\templates\invoices\form.html:14
+msgid "invoice"
+msgstr "فاتورة"
+
+#: .\system\templates\invoices\form.html:17
+msgid "Invoice&nbsp;No:"
+msgstr "رقم&nbsp;الفاتورة:"
+
+#: .\system\templates\invoices\form.html:24
+msgid "Lines"
+msgstr "بنود"
+
+#: .\system\templates\invoices\form.html:29
+#: .\system\templates\products\form.html:3
+#: .\system\templates\products\form.html:10
+msgid "Product"
+msgstr "المنتج"
+
+#: .\system\templates\invoices\form.html:30
+#: .\system\templates\invoices\pdf.html:68
+msgid "Description"
+msgstr "الوصف"
+
+#: .\system\templates\invoices\form.html:31
+#: .\system\templates\invoices\pdf.html:69
+msgid "Qty"
+msgstr "الكمية"
+
+#: .\system\templates\invoices\form.html:32
+msgid "Unit price"
+msgstr "سعر الوحدة"
+
+#: .\system\templates\invoices\form.html:50
+msgid "Add line"
+msgstr "إضافة بند"
+
+#: .\system\templates\invoices\list.html:6
+msgid "Back to dashboard"
+msgstr "العودة إلى اللوحة"
+
+#: .\system\templates\invoices\list.html:11
+msgid "Search number or customer"
+msgstr "ابحث برقم الفاتورة أو باسم العميل"
+
+#: .\system\templates\invoices\list.html:15
+msgid "All customers"
+msgstr "جميع العملاء"
+
+#: .\system\templates\invoices\list.html:28
+msgid "Paid & unpaid"
+msgstr "مدفوعة وغير مدفوعة"
+
+#: .\system\templates\invoices\list.html:33
+#: .\system\templates\products\list.html:22
+msgid "Filter"
+msgstr "تصفية"
+
+#: .\system\templates\invoices\list.html:34
+#: .\system\templates\products\list.html:24
+msgid "Reset"
+msgstr "إعادة تعيين"
+
+#: .\system\templates\invoices\list.html:37
+msgid "No."
+msgstr "رقم"
+
+#: .\system\templates\invoices\list.html:37
+msgid "Issue"
+msgstr "تاريخ الإصدار"
+
+#: .\system\templates\invoices\list.html:37
+msgid "Total"
+msgstr "الإجمالي"
+
+#: .\system\templates\invoices\list.html:47
+msgid "View"
+msgstr "عرض"
+
+#: .\system\templates\invoices\list.html:54
+msgid "Mark unpaid"
+msgstr "تعيين كغير مدفوعة"
+
+#: .\system\templates\invoices\list.html:58
+msgid "Mark paid"
+msgstr "تعيين كمدفوعة"
+
+#: .\system\templates\invoices\pdf.html:35
+#: .\system\templates\invoices\pdf.html:57
+msgid "Contact Person:"
+msgstr "الشخص المسؤول:"
+
+#: .\system\templates\invoices\pdf.html:36
+msgid "Org-nr:"
+msgstr "رقم المؤسسة:"
+
+#: .\system\templates\invoices\pdf.html:38
+#: .\system\templates\invoices\pdf.html:60
+msgid "Tel:"
+msgstr "الهاتف:"
+
+#: .\system\templates\invoices\pdf.html:38
+#: .\system\templates\invoices\pdf.html:61
+msgid "E:"
+msgstr "البريد:"
+
+#: .\system\templates\invoices\pdf.html:39
+#: .\system\templates\invoices\pdf.html:113
+msgid "IBAN:"
+msgstr "IBAN:"
+
+#: .\system\templates\invoices\pdf.html:40
+#: .\system\templates\invoices\pdf.html:112
+msgid "Swish:"
+msgstr "Swish:"
+
+#: .\system\templates\invoices\pdf.html:41
+#: .\system\templates\invoices\pdf.html:111
+msgid "Bankgiro:"
+msgstr "Bankgiro:"
+
+#: .\system\templates\invoices\pdf.html:45
+msgid "INVOICE"
+msgstr "فاتورة"
+
+#: .\system\templates\invoices\pdf.html:46
+msgid "No:"
+msgstr "رقم:"
+
+#: .\system\templates\invoices\pdf.html:47
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: .\system\templates\invoices\pdf.html:48
+msgid "Due:"
+msgstr "الاستحقاق:"
+
+#: .\system\templates\invoices\pdf.html:54
+msgid "BILL TO:"
+msgstr "فاتورة إلى:"
+
+#: .\system\templates\invoices\pdf.html:58
+msgid "VAT/Org-nr:"
+msgstr "الضريبة/رقم المؤسسة:"
+
+#: .\system\templates\invoices\pdf.html:70
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#: .\system\templates\invoices\pdf.html:71
+msgid "Line Total"
+msgstr "إجمالي البند"
+
+#: .\system\templates\invoices\pdf.html:79
+msgid "Model:"
+msgstr "الموديل:"
+
+#: .\system\templates\invoices\pdf.html:92
+msgid "VMB-regeln tillämpas"
+msgstr "تُطبَّق قاعدة VMB"
+
+#: .\system\templates\invoices\pdf.html:97
+msgid "Subtotal:"
+msgstr "الإجمالي الفرعي:"
+
+#: .\system\templates\invoices\pdf.html:99
+#, python-format
+msgid "VAT (%(rate)s%%):"
+msgstr "ضريبة القيمة المضافة (%(rate)s%%):"
+
+#: .\system\templates\invoices\pdf.html:102
+msgid "TOTAL:"
+msgstr "الإجمالي:"
+
+#: .\system\templates\invoices\pdf.html:105
+#, python-format
+msgid "Invoice %(num)s"
+msgstr "فاتورة %(num)s"
+
+#: .\system\templates\invoices\pdf.html:109
+msgid "Thank you for your business."
+msgstr "شكرًا لتعاملكم معنا."
+
+# ───────────── Products ─────────────
+#: .\system\templates\products\confirm_delete.html:3
+msgid "Delete Product"
+msgstr "حذف المنتج"
+
+#: .\system\templates\products\confirm_delete.html:6
+#, python-format
+msgid "Delete “%(name)s”?"
+msgstr "حذف «%(name)s»؟"
+
+#: .\system\templates\products\confirm_delete.html:7
+msgid ""
+"Invoices that reference this item will keep their rows but show no product."
+msgstr "ستحتفظ الفواتير التي تشير إلى هذا العنصر بصفوفها ولكن ستظهر بدون منتج."
+
+#: .\system\templates\products\dashboard.html:3
+#: .\system\templates\products\dashboard.html:7
+msgid "Product Dashboard"
+msgstr "لوحة المنتجات"
+
+#: .\system\templates\products\dashboard.html:9
+#, python-format
+msgid "Total products: %(n)s"
+msgstr "إجمالي المنتجات: %(n)s"
+
+#: .\system\templates\products\dashboard.html:12
+msgid "Low Stock"
+msgstr "مخزون منخفض"
+
+#: .\system\templates\products\dashboard.html:17
+#, python-format
+msgid "%(n)s left"
+msgstr "%(n)s متبقي"
+
+#: .\system\templates\products\dashboard.html:23
+msgid "Recently Added"
+msgstr "المضافة حديثًا"
+
+#: .\system\templates\products\dashboard.html:30
+#: .\system\templates\products\list.html:34
+msgid "Available"
+msgstr "المتوفر"
+
+#: .\system\templates\products\dashboard.html:44
+msgid "No products yet."
+msgstr "لا توجد منتجات بعد."
+
+#: .\system\templates\products\dashboard.html:48
+#: .\system\templates\products\list.html:3
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+#: .\system\templates\products\dashboard.html:49
+#: .\system\templates\products\list.html:8
+msgid "Add Product"
+msgstr "إضافة منتج"
+
+#: .\system\templates\products\form.html:7
+msgid "Back to Products"
+msgstr "العودة إلى المنتجات"
+
+#: .\system\templates\products\list.html:11
+msgid "Product Inventory"
+msgstr "مخزون المنتجات"
+
+#: .\system\templates\products\list.html:14
+msgid "Search name / model"
+msgstr "ابحث بالاسم / الموديل"
+
+#: .\system\templates\products\list.html:17
+msgid "Min price"
+msgstr "أدنى سعر"
+
+#: .\system\templates\products\list.html:19
+msgid "Max price"
+msgstr "أعلى سعر"
+
+#: .\system\templates\products\list.html:35
+msgid "Sell Price"
+msgstr "سعر البيع"
+
+#: .\system\templates\products\list.html:56
+msgid "No products found."
+msgstr "لا توجد منتجات مطابقة."
+
+#: .\system\templates\products\list.html:64
+#, python-format
+msgid "Page %(n)s of %(total)s"
+msgstr "الصفحة %(n)s من %(total)s"
+
+#: .\system\templates\registration\login.html:5
+msgid "Login"
+msgstr ""
+
+#: .\system\templates\registration\login.html:9
+#, fuzzy
+#| msgid "Log out"
+msgid "Log in"
+msgstr "تسجيل الخروج"
+
+#, python-format
+#~ msgid "Welcome!"
+#~ msgstr "مرحباً"

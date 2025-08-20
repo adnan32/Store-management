@@ -1,27 +1,29 @@
 {% extends "base.html" %}
-{% block title %}All Customers{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "All Customers" %}{% endblock %}
 
 {% block content %}
   <div style="margin-bottom: 1rem;">
-    <a href="{% url 'customer-dashboard' %}" class="button">← Back to Dashboard</a>
-    <a href="{% url 'customer-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Customer</a>
+    <a href="{% url 'customer-dashboard' %}" class="button">← {% trans "Back to Dashboard" %}</a>
+    <a href="{% url 'customer-add' %}" class="button" style="margin-left: 0.5rem;">➕ {% trans "Add Customer" %}</a>
   </div>
 
-  <h2>📇 All Customers</h2>
+  <h2>📇 {% trans "All Customers" %}</h2>
 
   <form method="get" style="margin-bottom: 1rem;">
-    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search by name, contact or VAT" style="width: 60%;">
-    <button type="submit" class="button">🔍 Search</button>
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="{% trans 'Search by name, contact or VAT' %}" style="width: 60%;">
+    <button type="submit" class="button">🔍{% trans "Search"%}</button>
   </form>
 
   {% if object_list %}
     <table>
       <thead>
         <tr>
-          <th>Company Name</th>
-          <th>Contact Person</th>
-          <th>VAT / Org. Number</th>
-          <th>Actions</th>
+          <th>{% trans "Company Name"%}</th>
+          <th>{% trans "Contact Person"%}</th>
+          <th>{% trans "VAT / Org. Number"%}</th>
+          <th>{% trans "Actions"%}</th>
         </tr>
       </thead>
       <tbody>
@@ -31,27 +33,27 @@
             <td>{{ c.contact_person }}</td>
             <td>{{ c.vat_number }}</td>
             <td>
-              <a href="{% url 'customer-edit' c.pk %}" class="button">✏️ Edit</a>
-              <a href="{% url 'customer-delete' c.pk %}" class="button is-danger" style="margin-left:0.25rem;">🗑 Delete</a>
+              <a href="{% url 'customer-edit' c.pk %}" class="button">✏️ {% trans "Edit"%}</a>
+              <a href="{% url 'customer-delete' c.pk %}" class="button is-danger" style="margin-left:0.25rem;">🗑 {% trans "Delete"%}</a>
             </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   {% else %}
-    <p>No customers found.</p>
+    <p>{% trans "No customers found." %}</p>
   {% endif %}
 
   {% if is_paginated %}
     <div style="margin-top: 1rem;">
       {% if page_obj.has_previous %}
-        <a class="button" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">« Previous</a>
+        <a class="button" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">« {% trans "Previous"%}</a>
       {% endif %}
 
       Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
 
       {% if page_obj.has_next %}
-        <a class="button" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">Next »</a>
+        <a class="button" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">{% trans "Next"%} »</a>
       {% endif %}
     </div>
   {% endif %}

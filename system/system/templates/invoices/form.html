@@ -1,34 +1,35 @@
 {% extends "base.html" %}
-{% block title %}{% if object %}Edit{% else %}Add{% endif %} Invoice{% endblock %}
+{% load i18n %}
+{% block title %}{% if object %}{% trans "Edit" %}{% else %}{% trans "Add" %}{% endif %} {% trans "Invoice" %}{% endblock %}
 
 {% block content %}
   <!-- Back + context buttons -->
   <div style="margin-bottom:1rem;">
-      <a href="{% url 'invoice-list' %}" class="button">← Back to list</a>
+      <a href="{% url 'invoice-list' %}" class="button">← {% trans "Back to list" %}</a>
       {% if object %}
-          <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
+          <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 {% trans "Delete" %}</a>
       {% endif %}
   </div>
 
-  <h2>{% if object %}✏️ Edit{% else %}➕ Add{% endif %} invoice</h2>
+  <h2>{% if object %}✏️ {% trans "Edit" %}{% else %}➕ {% trans "Add" %}{% endif %} {% trans "invoice" %}</h2>
 
   {% if object %}
-    <p><strong>Invoice&nbsp;No:</strong> {{ object.number }}</p>
+    <p><strong>{% trans "Invoice&nbsp;No:" %}</strong> {{ object.number }}</p>
   {% endif %}
 
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
 
-<h3>Lines</h3>
+<h3>{% trans "Lines" %}</h3>
 {{ formset.management_form }}
 
 <table id="lines">
   <thead>
-    <tr><th style="width:32%">Product</th>
-        <th style="width:26%">Description</th>
-        <th style="width:8%">Qty</th>
-        <th style="width:15%">Unit price</th>
+    <tr><th style="width:32%">{% trans "Product" %}</th>
+        <th style="width:26%">{% trans "Description" %}</th>
+        <th style="width:8%">{% trans "Qty" %}</th>
+        <th style="width:15%">{% trans "Unit price" %}</th>
         <th style="width:4%"></th></tr>
   </thead>
   <tbody>
@@ -46,10 +47,9 @@
   </tbody>
 </table>
 
-<button type="button" class="button" id="add-line">➕ Add line</button>
+<button type="button" class="button" id="add-line">➕ {% trans "Add line" %}</button>
 
-
-    <button type="submit" class="button">💾 Save</button>
+    <button type="submit" class="button">💾 {% trans "Save" %}</button>
   </form>
 <script>
 document.addEventListener("DOMContentLoaded", function () {

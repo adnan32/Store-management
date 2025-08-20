@@ -1,12 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{% if object %}Edit{% else %}Add{% endif %} Product{% endblock %}
+{% load i18n %}
+{% block title %}{% if object %}{% trans "Edit" %}{% else %}{% trans "Add" %}{% endif %} {% trans "Product" %}{% endblock %}
 
 {% block content %}
   <div style="margin-bottom: 1rem;">
-    <a href="{% url 'product-list' %}" class="button">← Back to Products</a>
+    <a href="{% url 'product-list' %}" class="button">← {% trans "Back to Products" %}</a>
   </div>
 
-  <h2>{% if object %}✏️ Edit{% else %}➕ Add{% endif %} Product</h2>
+  <h2>{% if object %}✏️ {% trans "Edit" %}{% else %}➕ {% trans "Add" %}{% endif %} {% trans "Product" %}</h2>
 
   <form method="post" style="max-width: 600px;">
     {% csrf_token %}
@@ -46,6 +47,6 @@
       {{ form.supplier }}
     </div>
 
-    <button type="submit" class="button">💾 Save</button>
+    <button type="submit" class="button">💾 {% trans "Save" %}</button>
   </form>
 {% endblock %}

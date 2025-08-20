@@ -1,28 +1,29 @@
 {% extends "base.html" %}
-{% block title %}Invoice {{ object.number }}{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Invoice" %} {{ object.number }}{% endblock %}
 
 {% block content %}
   <!-- ── Action buttons ───────────────────────────── -->
   <div style="margin-bottom:1rem;">
-    <a href="{% url 'invoice-list' %}" class="button">← Back to list</a>
-    <a href="{% url 'invoice-edit' object.pk %}" class="button" style="margin-left:.5rem;">✏️ Edit</a>
-    <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
-    <a href="{% url 'invoice-pdf' object.pk %}" class="button" style="margin-left:.5rem;">⇩ PDF</a>
+    <a href="{% url 'invoice-list' %}" class="button">← {% trans "Back to list" %}</a>
+    <a href="{% url 'invoice-edit' object.pk %}" class="button" style="margin-left:.5rem;">✏️ {% trans "Edit" %}</a>
+    <a href="{% url 'invoice-delete' object.pk %}" class="button" style="margin-left:.5rem;">🗑 {% trans "Delete" %}</a>
+    <a href="{% url 'invoice-pdf' object.pk %}" class="button" style="margin-left:.5rem;">⇩ {% trans "PDF" %}</a>
   </div>
 
-  <!-- ── Send‑invoice form ───────────────────────── -->
+  <!-- ── Send-invoice form ───────────────────────── -->
   {% if object.customer.email %}
     <form method="post" action="{% url 'invoice-send' object.pk %}" style="display:inline-block; margin-bottom:1.5rem;">
       {% csrf_token %}
-      <button type="submit" class="button primary">✉️ Send to {{ object.customer.email }}</button>
+      <button type="submit" class="button primary">✉️ {% trans "Send to" %} {{ object.customer.email }}</button>
     </form>
   {% endif %}
 
   <!-- ── Paid / unpaid badge ─────────────────────── -->
   {% if object.paid %}
-    <p><strong>Status:</strong> <span style="color:green;">Paid</span></p>
+    <p><strong>{% trans "Status:" %}</strong> <span style="color:green;">{% trans "Paid" %}</span></p>
   {% else %}
-    <p><strong>Status:</strong> <span style="color:#d33;">Unpaid</span></p>
+    <p><strong>{% trans "Status:" %}</strong> <span style="color:#d33;">{% trans "Unpaid" %}</span></p>
   {% endif %}
 
   <!-- ── Embedded printable invoice markup ───────── -->

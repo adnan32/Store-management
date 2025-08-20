@@ -1,29 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Product Dashboard{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Product Dashboard" %}{% endblock %}
 
 {% block content %}
-  <a href="{% url 'home' %}" class="button">🏠 Home</a>
-  <h2>📊 Product Dashboard</h2>
+  <a href="{% url 'home' %}" class="button">🏠 {% trans "Home" %}</a>
+  <h2>📊 {% trans "Product Dashboard" %}</h2>
   
-  <p><strong>Total products:</strong> {{ total }}</p>
+  <p><strong>{% blocktrans with n=total %}Total products: {{ n }}{% endblocktrans %}</strong></p>
 
   {% if low_stock %}
-    <h3>🚨 Low Stock</h3>
+    <h3>🚨 {% trans "Low Stock" %}</h3>
     <ul>
       {% for p in low_stock %}
-        <li>{{ p.name }} ({{ p.available_qty }} left)</li>
+        <li>
+          {{ p.name }}
+          ({% blocktrans with n=p.available_qty %}{{ n }} left{% endblocktrans %})
+        </li>
       {% endfor %}
     </ul>
   {% endif %}
 
-  <h3>🆕 Recently Added</h3>
+  <h3>🆕 {% trans "Recently Added" %}</h3>
   {% if products %}
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Model</th>
-          <th>Available</th>
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Model" %}</th>
+          <th>{% trans "Available" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -37,11 +41,11 @@
       </tbody>
     </table>
   {% else %}
-    <p>No products yet.</p>
+    <p>{% trans "No products yet." %}</p>
   {% endif %}
 
   <div style="margin-top: 1rem;">
-  <a href="{% url 'product-list' %}" class="button" style="margin-left:.5rem;">📋 All Products</a>
-  <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
+    <a href="{% url 'product-list' %}" class="button" style="margin-left:.5rem;">📋 {% trans "All Products" %}</a>
+    <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ {% trans "Add Product" %}</a>
   </div>
 {% endblock %}

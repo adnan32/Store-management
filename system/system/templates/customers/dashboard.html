@@ -1,19 +1,20 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Customer Dashboard{% endblock %}
+{% block title %}{% trans "Customer Dashboard" %}{% endblock %}
 
 {% block content %}
 <div style="margin-bottom:1rem;">
-  <a href="{% url 'home' %}" class="button">🏠 Home</a>
+  <a href="{% url 'home' %}" class="button">🏠 {% trans "Home" %}</a>
 </div>
-  <h2>📋 Last 5 Customers</h2>
+  <h2>📋 {% trans "Last 5 Customers" %}</h2>
 
   {% if object_list %}
     <table>
       <thead>
         <tr>
-          <th>Company Name</th>
-          <th>Contact Person</th>
+          <th>{% trans "Company Name" %}</th>
+          <th>{% trans "Contact Person" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -26,11 +27,11 @@
       </tbody>
     </table>
   {% else %}
-    <p>No customers yet.</p>
+    <p>{% trans "No customers yet." %}</p>
   {% endif %}
 
   <div style="margin-top: 1.5rem;">
-    <a href="{% url 'customer-list' %}" class="button">👁 View All Customers</a>
-    <a href="{% url 'customer-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Customer</a>
+    <a href="{% url 'customer-list' %}" class="button">👁 {% trans "View All Customers" %}</a>
+    <a href="{% url 'customer-add' %}" class="button" style="margin-left: 0.5rem;">➕ {% trans "Add Customer" %}</a>
   </div>
 {% endblock %}

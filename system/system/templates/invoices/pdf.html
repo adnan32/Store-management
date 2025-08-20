@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html lang="en">
 <head>
   <style>
@@ -31,43 +32,43 @@
       <td>
         <div class="logo">{{ company.name }}</div>
         <div class="contact-details">
-          {% if company.contact_person %}Contact Person: {{ company.contact_person }}<br>{% endif %}
-          Org-nr: {{ company.org_number }}<br>
+          {% if company.contact_person %}{% trans "Contact Person:" %} {{ company.contact_person }}<br>{% endif %}
+          {% trans "Org-nr:" %} {{ company.org_number }}<br>
           {{ company.address|linebreaksbr }}<br>
-          Tel: {{ company.phone }} | E: {{ company.email }}<br>
-          {% if company.IBAN %}IBAN: {{ company.IBAN }} {% endif %}
-          {% if company.Swish %}Swish: {{ company.Swish }} {% endif %}
-          {% if company.Bankgiro %}Bankgiro: {{ company.Bankgiro }}{% endif %}
+          {% trans "Tel:" %} {{ company.phone }} | {% trans "E:" %} {{ company.email }}<br>
+          {% if company.IBAN %}{% trans "IBAN:" %} {{ company.IBAN }} {% endif %}
+          {% if company.Swish %}{% trans "Swish:" %} {{ company.Swish }} {% endif %}
+          {% if company.Bankgiro %}{% trans "Bankgiro:" %} {{ company.Bankgiro }}{% endif %}
         </div>
       </td>
       <td class="invoice-meta">
-        <h2>INVOICE</h2>
-        No: {{ invoice.number }}<br>
-        Date: {{ invoice.issue_date }}<br>
-        Due: {{ invoice.due_date }}
+        <h2>{% trans "INVOICE" %}</h2>
+        {% trans "No:" %} {{ invoice.number }}<br>
+        {% trans "Date:" %} {{ invoice.issue_date }}<br>
+        {% trans "Due:" %} {{ invoice.due_date }}
       </td>
     </tr>
   </table>
 
   <!-- Bill To -->
-  <h5>BILL TO:</h5>
+  <h5>{% trans "BILL TO:" %}</h5>
   <div class="contact-details">
     <strong>{{ invoice.customer.name }}</strong><br>
-    {% if invoice.customer.contact_person %}Contact Person: {{ invoice.customer.contact_person }}<br>{% endif %}
-    {% if invoice.customer.vat_number %}VAT/Org-nr: {{ invoice.customer.vat_number }}<br>{% endif %}
+    {% if invoice.customer.contact_person %}{% trans "Contact Person:" %} {{ invoice.customer.contact_person }}<br>{% endif %}
+    {% if invoice.customer.vat_number %}{% trans "VAT/Org-nr:" %} {{ invoice.customer.vat_number }}<br>{% endif %}
     {{ invoice.customer.address|linebreaksbr }}<br>
-    {% if invoice.customer.phone %}Tel: {{ invoice.customer.phone }}<br>{% endif %}
-    {% if invoice.customer.email %}E: {{ invoice.customer.email }}{% endif %}
+    {% if invoice.customer.phone %}{% trans "Tel:" %} {{ invoice.customer.phone }}<br>{% endif %}
+    {% if invoice.customer.email %}{% trans "E:" %} {{ invoice.customer.email }}{% endif %}
   </div>
 
   <!-- Items -->
   <table class="items">
     <thead>
       <tr>
-        <th>Description</th>
-        <th class="right">Qty</th>
-        <th class="right">Unit Price</th>
-        <th class="right">Line Total</th>
+        <th>{% trans "Description" %}</th>
+        <th class="right">{% trans "Qty" %}</th>
+        <th class="right">{% trans "Unit Price" %}</th>
+        <th class="right">{% trans "Line Total" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -75,7 +76,7 @@
       <tr>
         <td>
           <strong>{{ line.product_name }}</strong>
-          {% if line.product_model %}<br><small>Model: {{ line.product_model }}</small>{% endif %}
+          {% if line.product_model %}<br><small>{% trans "Model:" %} {{ line.product_model }}</small>{% endif %}
           {% if line.description %}<br><small>{{ line.description }}</small>{% endif %}
         </td>
         <td class="right">{{ line.quantity }}</td>
@@ -88,34 +89,31 @@
   
   {% if invoice.VMB %}
     <p style="margin-top:1rem; font-weight:700;">
-        VMB-regeln tillämpas
+        {% trans "VMB-regeln tillämpas" %}
     </p>
   {% endif %}
   <!-- Totals -->
   <table class="totals">
-    <tr><td>Subtotal:</td><td class="right">{{ invoice.total_ex_vat }} kr</td></tr>
-    <tr><td>VAT ({{ invoice.vat_rate }}%):</td><td class="right">{{ invoice.vat_total }} kr</td></tr>
-    <tr class="total-row"><td>TOTAL:</td><td class="right">{{ invoice.total_inc_vat }} kr</td></tr>
+    <tr><td>{% trans "Subtotal:" %}</td><td class="right">{{ invoice.total_ex_vat }} kr</td></tr>
+    <tr>
+      <td>{% blocktrans with rate=invoice.vat_rate %}VAT ({{ rate }}%):{% endblocktrans %}</td>
+      <td class="right">{{ invoice.vat_total }} kr</td>
+    </tr>
+    <tr class="total-row"><td>{% trans "TOTAL:" %}</td><td class="right">{{ invoice.total_inc_vat }} kr</td></tr>
   </table>
   <div class="footer-note">
-    Invoice {{ invoice.number }}
+    {% blocktrans with num=invoice.number %}Invoice {{ num }}{% endblocktrans %}
   </div>
   <!-- Footer Note -->
  <footer>
-    <div>Thank you for your business.</div>
+    <div>{% trans "Thank you for your business." %}</div>
     <div class="payment-info">
-      {% if company.bankgiro %}Bankgiro: {{ company.bankgiro }}{% endif %}
-      {% if company.swish %}{% if company.bankgiro %}{% endif %}Swish: {{ company.swish }}{% endif %}
-      {% if company.iban %}{% if company.bankgiro or company.swish %}{% endif %}IBAN: {{ company.iban }}{% endif %}
+      {% if company.bankgiro %}{% trans "Bankgiro:" %} {{ company.bankgiro }}{% endif %}
+      {% if company.swish %}{% if company.bankgiro %}{% endif %}{% trans "Swish:" %} {{ company.swish }}{% endif %}
+      {% if company.iban %}{% if company.bankgiro or company.swish %}{% endif %}{% trans "IBAN:" %} {{ company.iban }}{% endif %}
     </div>
     <div>{{ company.name }} &nbsp;|&nbsp; {{ company.email }} &nbsp;|&nbsp; {{ company.phone }}</div>
   </footer>
 
 </body>
 </html>
-
-
-
-
-
- 

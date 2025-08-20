@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-{% block title %}Delete Customer{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete Customer" %}{% endblock %}
 
 {% block content %}
-  <h2>🗑 Delete “{{ object.name }}”?</h2>
-  <p>All invoices associated with the customer you are about to delete will also be permanently removed. This action cannot be undone.</p>
+  <h2>🗑 {% blocktrans %}Delete “{{ object.name }}”?{% endblocktrans %}</h2>
+  <p>{% blocktrans %}All invoices associated with the customer you are about to delete will also be permanently removed. This action cannot be undone.{% endblocktrans %}</p>
 
   <form method="post">{% csrf_token %}
-    <button type="submit" class="button is-danger">✅ Yes, delete</button>
-    <a href="{% url 'customer-list' %}" class="button">✖️ Cancel</a>
+    <button type="submit" class="button is-danger">✅ {% trans "Yes, delete" %}</button>
+    <a href="{% url 'customer-list' %}" class="button">✖️ {% trans "Cancel" %}</a>
   </form>
 {% endblock %}

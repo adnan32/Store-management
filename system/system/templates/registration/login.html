@@ -1,11 +1,11 @@
-<!-- templates/registration/login.html -->
 {% extends "admin/base_site.html" %}
+{% load i18n %}
 
 {% block content %}
-  <h2>Login</h2>
+  <h2>{% trans "Login" %}</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Log in</button>
+    <button type="submit">{% trans "Log in" %}</button>
   </form>
 {% endblock %}

@@ -1,38 +1,39 @@
 {% extends "base.html" %}
-{% block title %}All Products{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "All Products" %}{% endblock %}
 
 {% block content %}
   <div style="margin-bottom: 1rem;">
-    <a href="{% url 'product-dashboard' %}" class="button">← Back to Dashboard</a>
-    <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ Add Product</a>
+    <a href="{% url 'product-dashboard' %}" class="button">← {% trans "Back to Dashboard" %}</a>
+    <a href="{% url 'product-add' %}" class="button" style="margin-left: 0.5rem;">➕ {% trans "Add Product" %}</a>
   </div>
 
-  <h2>📦 Product Inventory</h2>
+  <h2>📦 {% trans "Product Inventory" %}</h2>
   <!-- ── filter bar ─────────────────────────────────────────────── -->
   <form method="get" style="margin-bottom:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
-    <input type="text" name="q" placeholder="Search name / model"
+    <input type="text" name="q" placeholder="{% trans 'Search name / model' %}"
           value="{{ request.GET.q }}" style="flex:1 1 200px;">
 
-    <input type="number" step="0.01" name="min_price" placeholder="Min price"
+    <input type="number" step="0.01" name="min_price" placeholder="{% trans 'Min price' %}"
           value="{{ request.GET.min_price }}" style="width:90px;">
-    <input type="number" step="0.01" name="max_price" placeholder="Max price"
+    <input type="number" step="0.01" name="max_price" placeholder="{% trans 'Max price' %}"
           value="{{ request.GET.max_price }}" style="width:90px;">
 
-    <button class="button">Filter</button>
+    <button class="button">{% trans "Filter" %}</button>
     {% if request.GET %}
-      <a href="{% url 'product-list' %}" class="button">Reset</a>
+      <a href="{% url 'product-list' %}" class="button">{% trans "Reset" %}</a>
     {% endif %}
   </form>
   {% if object_list %}
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Model</th>
-          <th>Category</th>
-          <th>Available</th>
-          <th>Sell Price</th>
-          <th>Actions</th>
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Model" %}</th>
+          <th>{% trans "Category" %}</th>
+          <th>{% trans "Available" %}</th>
+          <th>{% trans "Sell Price" %}</th>
+          <th>{% trans "Actions" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -44,25 +45,25 @@
             <td>{{ product.available_qty }}</td>
             <td>{{ product.selling_price }} kr</td>
             <td>
-            <a href="{% url 'product-edit' product.pk %}" class="button">✏️ Edit</a>
-            <a href="{% url 'product-delete' product.pk %}" class="button is-danger" style="margin-left:.25rem;">🗑 Delete</a>
+            <a href="{% url 'product-edit' product.pk %}" class="button">✏️ {% trans "Edit" %}</a>
+            <a href="{% url 'product-delete' product.pk %}" class="button is-danger" style="margin-left:.25rem;">🗑 {% trans "Delete" %}</a>
             </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   {% else %}
-    <p>No products found.</p>
+    <p>{% trans "No products found." %}</p>
   {% endif %}
 
   {% if is_paginated %}
     <div style="margin-top: 1rem;">
       {% if page_obj.has_previous %}
-        <a class="button" href="?page={{ page_obj.previous_page_number }}">« Previous</a>
+        <a class="button" href="?page={{ page_obj.previous_page_number }}">« {% trans "Previous" %}</a>
       {% endif %}
-      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      {% blocktrans with n=page_obj.number total=page_obj.paginator.num_pages %}Page {{ n }} of {{ total }}{% endblocktrans %}
       {% if page_obj.has_next %}
-        <a class="button" href="?page={{ page_obj.next_page_number }}">Next »</a>
+        <a class="button" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %} »</a>
       {% endif %}
     </div>
   {% endif %}

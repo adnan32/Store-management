@@ -1,13 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Invoice Dashboard{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "Invoice Dashboard" %}{% endblock %}
 {% block content %}
   <div style="margin-bottom:1rem;">
-      <a href="{% url 'home' %}" class="button">🏠 Home</a>
+      <a href="{% url 'home' %}" class="button">🏠 {% trans "Home" %}</a>
   </div>
-<h2>🧾 Invoice dashboard</h2>
-<p>Total invoices: {{ count }}</p>
+<h2>🧾 {% trans "Invoice dashboard" %}</h2>
+<p>{% blocktrans with n=count %}Total invoices: {{ n }}{% endblocktrans %}</p>
 {% if overdue_cnt %}
-  <h3 style="color:#d00;">⚠️ Overdue&nbsp;({{ overdue_cnt }})</h3>
+  <h3 style="color:#d00;">{% blocktrans with n=overdue_cnt %}⚠️ Overdue&nbsp;({{ n }}){% endblocktrans %}</h3>
   <ul>
     {% for inv in overdue %}
       <li>
@@ -18,16 +20,16 @@
     {% endfor %}
   </ul>
 {% endif %}
-<h3>Last 5</h3>
+<h3>{% trans "Last 5" %}</h3>
 <ul>
   {% for inv in recent %}
     <li><a href="{% url 'invoice-detail' inv.pk %}">{{ inv.number }}</a>
         – {{ inv.customer.name }} – {{ inv.total_inc_vat }} kr</li>
   {% empty %}
-    <li>No invoices yet.</li>
+    <li>{% trans "No invoices yet." %}</li>
   {% endfor %}
 </ul>
 
-<a href="{% url 'invoice-add' %}" class="button">➕ New invoice</a>
-<a href="{% url 'invoice-list' %}" class="button" style="margin-left:.5rem;">📋 All invoices</a>
+<a href="{% url 'invoice-add' %}" class="button">➕ {% trans "New invoice" %}</a>
+<a href="{% url 'invoice-list' %}" class="button" style="margin-left:.5rem;">📋 {% trans "All invoices" %}</a>
 {% endblock %}

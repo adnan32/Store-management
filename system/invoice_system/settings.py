@@ -48,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+
 ]
 
 ROOT_URLCONF = 'invoice_system.urls'
@@ -139,3 +141,13 @@ EMAIL_HOST_USER = "info@snyab.com"
 EMAIL_HOST_PASSWORD = "Salim5590838461"
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LANGUAGES = [
+    ("en", "English"),
+    ("fr", "Français"),
+    ("ar", "العربية"),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]

@@ -1,0 +1,630 @@
+# French translations
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-21 01:46+0200\n"
+"PO-Revision-Date: 2025-08-21 01:35+0200\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\system\apps.py:11
+msgid "Invoice System — Admin"
+msgstr "Système de facturation — Admin"
+
+#: .\system\apps.py:12
+msgid "Administration"
+msgstr "Administration"
+
+#: .\system\apps.py:13
+msgid "Invoice Admin"
+msgstr "Admin factures"
+
+#: .\system\models\customer.py:6
+msgid "Company name"
+msgstr "Nom de l’entreprise"
+
+#: .\system\models\customer.py:7
+msgid "Contact person"
+msgstr "Interlocuteur"
+
+#: .\system\models\customer.py:8
+msgid "Phone"
+msgstr "Téléphone"
+
+#: .\system\models\customer.py:9
+msgid "Address"
+msgstr "Adresse"
+
+#: .\system\models\customer.py:10 .\system\templates\customers\list.html:25
+msgid "VAT / Org. Number"
+msgstr "TVA / N° d’organisation"
+
+#: .\system\models\customer.py:12
+msgid "Email"
+msgstr "E-mail"
+
+#: .\system\models\product.py:4 .\system\templates\products\dashboard.html:28
+#: .\system\templates\products\list.html:31
+msgid "Name"
+msgstr "Nom"
+
+#: .\system\models\product.py:5 .\system\templates\products\dashboard.html:29
+#: .\system\templates\products\list.html:32
+msgid "Model"
+msgstr "Modèle"
+
+#: .\system\models\product.py:6 .\system\templates\products\list.html:33
+msgid "Category"
+msgstr "Catégorie"
+
+#: .\system\models\product.py:7
+msgid "Available quantity"
+msgstr "Disponible"
+
+#: .\system\models\product.py:8
+msgid "Purchase Price"
+msgstr "Prix ​​d'achat"
+
+#: .\system\models\product.py:9
+msgid "Selling Price"
+msgstr "Prix de vente"
+
+#: .\system\models\product.py:10
+msgid "Supplier"
+msgstr "Fournisseuse"
+
+#: .\system\templates\base.html:8 .\system\templates\base.html:13
+msgid "Invoice System"
+msgstr "Système de facturation"
+
+#: .\system\templates\base.html:15
+msgid "Customers"
+msgstr "Clients"
+
+#: .\system\templates\base.html:16 .\system\templates\home.html:8
+msgid "Products"
+msgstr "Produits"
+
+#: .\system\templates\base.html:17 .\system\templates\home.html:10
+#: .\system\templates\invoices\list.html:3
+#: .\system\templates\invoices\list.html:9
+msgid "Invoices"
+msgstr "Factures"
+
+#: .\system\templates\base.html:18
+msgid "Log out"
+msgstr "Se déconnecter"
+
+#: .\system\templates\base.html:30
+msgid "Change"
+msgstr "Changer"
+
+#: .\system\templates\customers\confirm_delete.html:4
+msgid "Delete Customer"
+msgstr "Supprimer le client"
+
+#: .\system\templates\customers\confirm_delete.html:7
+#, python-format
+msgid "Delete “%(object.name)s”?"
+msgstr "Supprimer « %(object.name)s » ?"
+
+#: .\system\templates\customers\confirm_delete.html:8
+msgid ""
+"All invoices associated with the customer you are about to delete will also "
+"be permanently removed. This action cannot be undone."
+msgstr ""
+"Toutes les factures associées au client que vous allez supprimer seront "
+"également supprimées définitivement. Cette action est irréversible."
+
+#: .\system\templates\customers\confirm_delete.html:11
+#: .\system\templates\invoices\confirm_delete.html:15
+#: .\system\templates\products\confirm_delete.html:10
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+#: .\system\templates\customers\confirm_delete.html:12
+#: .\system\templates\invoices\confirm_delete.html:7
+#: .\system\templates\products\confirm_delete.html:11
+msgid "Cancel"
+msgstr "Annuler"
+
+#: .\system\templates\customers\dashboard.html:4
+msgid "Customer Dashboard"
+msgstr "Tableau de bord clients"
+
+#: .\system\templates\customers\dashboard.html:8 .\system\templates\home.html:4
+#: .\system\templates\invoices\dashboard.html:7
+#: .\system\templates\products\dashboard.html:6
+msgid "Home"
+msgstr "Accueil"
+
+#: .\system\templates\customers\dashboard.html:10
+msgid "Last 5 Customers"
+msgstr "5 derniers clients"
+
+#: .\system\templates\customers\dashboard.html:16
+#: .\system\templates\customers\list.html:23
+msgid "Company Name"
+msgstr "Nom de l’entreprise"
+
+#: .\system\templates\customers\dashboard.html:17
+#: .\system\templates\customers\list.html:24
+msgid "Contact Person"
+msgstr "Interlocuteur"
+
+#: .\system\templates\customers\dashboard.html:30
+msgid "No customers yet."
+msgstr "Aucun client pour le moment."
+
+#: .\system\templates\customers\dashboard.html:34
+msgid "View All Customers"
+msgstr "Voir tous les clients"
+
+#: .\system\templates\customers\dashboard.html:35
+#: .\system\templates\customers\list.html:9
+msgid "Add Customer"
+msgstr "Ajouter un client"
+
+#: .\system\templates\customers\form.html:4
+#: .\system\templates\customers\form.html:12
+#: .\system\templates\customers\list.html:36
+#: .\system\templates\invoices\detail.html:9
+#: .\system\templates\invoices\form.html:3
+#: .\system\templates\invoices\form.html:14
+#: .\system\templates\products\form.html:3
+#: .\system\templates\products\form.html:10
+#: .\system\templates\products\list.html:48
+msgid "Edit"
+msgstr "Modifier"
+
+#: .\system\templates\customers\form.html:4
+#: .\system\templates\customers\form.html:12
+#: .\system\templates\invoices\form.html:3
+#: .\system\templates\invoices\form.html:14
+#: .\system\templates\products\form.html:3
+#: .\system\templates\products\form.html:10
+msgid "Add"
+msgstr "Ajouter"
+
+#: .\system\templates\customers\form.html:4
+#: .\system\templates\customers\form.html:12
+#: .\system\templates\invoices\list.html:37
+msgid "Customer"
+msgstr "Client"
+
+#: .\system\templates\customers\form.html:8
+#: .\system\templates\customers\list.html:8
+#: .\system\templates\products\list.html:7
+msgid "Back to Dashboard"
+msgstr "Retour au tableau de bord"
+
+#: .\system\templates\customers\form.html:9
+#: .\system\templates\customers\list.html:4
+#: .\system\templates\customers\list.html:12
+msgid "All Customers"
+msgstr "Tous les clients"
+
+#: .\system\templates\customers\form.html:45
+#: .\system\templates\invoices\form.html:52
+#: .\system\templates\products\form.html:50
+msgid "Save"
+msgstr "Enregistrer"
+
+#: .\system\templates\customers\list.html:15
+msgid "Search by name, contact or VAT"
+msgstr "Rechercher par nom, contact ou TVA"
+
+#: .\system\templates\customers\list.html:16
+msgid "Search"
+msgstr "Rechercher"
+
+#: .\system\templates\customers\list.html:26
+#: .\system\templates\products\list.html:36
+msgid "Actions"
+msgstr "Actions"
+
+#: .\system\templates\customers\list.html:37
+#: .\system\templates\invoices\detail.html:10
+#: .\system\templates\invoices\form.html:10
+#: .\system\templates\invoices\list.html:48
+#: .\system\templates\products\list.html:49
+msgid "Delete"
+msgstr "Supprimer"
+
+#: .\system\templates\customers\list.html:44
+msgid "No customers found."
+msgstr "Aucun client trouvé."
+
+#: .\system\templates\customers\list.html:50
+#: .\system\templates\products\list.html:62
+msgid "Previous"
+msgstr "Précédent"
+
+#: .\system\templates\customers\list.html:56
+#: .\system\templates\products\list.html:66
+msgid "Next"
+msgstr "Suivant"
+
+#: .\system\templates\home.html:7
+#, python-format
+msgid "Welcome %(request.user.username)s!"
+msgstr ""
+
+#: .\system\templates\home.html:9
+msgid "Manage Customers"
+msgstr "Gérer les clients"
+
+#: .\system\templates\invoices\confirm_delete.html:3
+#: .\system\templates\invoices\confirm_delete.html:10
+msgid "Delete Invoice"
+msgstr "Supprimer la facture"
+
+#: .\system\templates\invoices\confirm_delete.html:11
+msgid ""
+"Are you sure you want to delete this invoice? This action cannot be undone."
+msgstr ""
+"Voulez-vous vraiment supprimer cette facture ? Cette action est irréversible."
+
+#: .\system\templates\invoices\dashboard.html:4
+msgid "Invoice Dashboard"
+msgstr "Tableau de bord des factures"
+
+#: .\system\templates\invoices\dashboard.html:9
+msgid "Invoice dashboard"
+msgstr "Tableau de bord des factures"
+
+#: .\system\templates\invoices\dashboard.html:10
+#, python-format
+msgid "Total invoices: %(n)s"
+msgstr "Total des factures : %(n)s"
+
+#: .\system\templates\invoices\dashboard.html:12
+#, python-format
+msgid "⚠️ Overdue&nbsp;(%(n)s)"
+msgstr "⚠️ En retard&nbsp;(%(n)s)"
+
+#: .\system\templates\invoices\dashboard.html:23
+msgid "Last 5"
+msgstr "5 dernières"
+
+#: .\system\templates\invoices\dashboard.html:29
+#: .\system\templates\invoices\list.html:65
+msgid "No invoices yet."
+msgstr "Aucune facture pour le moment."
+
+#: .\system\templates\invoices\dashboard.html:33
+#: .\system\templates\invoices\list.html:7
+msgid "New invoice"
+msgstr "Nouvelle facture"
+
+#: .\system\templates\invoices\dashboard.html:34
+msgid "All invoices"
+msgstr "Toutes les factures"
+
+#: .\system\templates\invoices\detail.html:3
+#: .\system\templates\invoices\form.html:3
+msgid "Invoice"
+msgstr "Facture"
+
+#: .\system\templates\invoices\detail.html:8
+#: .\system\templates\invoices\form.html:8
+msgid "Back to list"
+msgstr "Retour à la liste"
+
+#: .\system\templates\invoices\detail.html:11
+msgid "PDF"
+msgstr "PDF"
+
+#: .\system\templates\invoices\detail.html:18
+msgid "Send to"
+msgstr "Envoyer à"
+
+#: .\system\templates\invoices\detail.html:24
+#: .\system\templates\invoices\detail.html:26
+msgid "Status:"
+msgstr "Statut :"
+
+#: .\system\templates\invoices\detail.html:24
+#: .\system\templates\invoices\list.html:29
+#: .\system\templates\invoices\list.html:38
+msgid "Paid"
+msgstr "Payée"
+
+#: .\system\templates\invoices\detail.html:26
+#: .\system\templates\invoices\list.html:30
+msgid "Unpaid"
+msgstr "Impayée"
+
+#: .\system\templates\invoices\form.html:14
+msgid "invoice"
+msgstr "facture"
+
+#: .\system\templates\invoices\form.html:17
+msgid "Invoice&nbsp;No:"
+msgstr "N°&nbsp;de facture :"
+
+#: .\system\templates\invoices\form.html:24
+msgid "Lines"
+msgstr "Lignes"
+
+#: .\system\templates\invoices\form.html:29
+#: .\system\templates\products\form.html:3
+#: .\system\templates\products\form.html:10
+msgid "Product"
+msgstr "Produit"
+
+#: .\system\templates\invoices\form.html:30
+#: .\system\templates\invoices\pdf.html:68
+msgid "Description"
+msgstr "Description"
+
+#: .\system\templates\invoices\form.html:31
+#: .\system\templates\invoices\pdf.html:69
+msgid "Qty"
+msgstr "Qté"
+
+#: .\system\templates\invoices\form.html:32
+msgid "Unit price"
+msgstr "Prix unitaire"
+
+#: .\system\templates\invoices\form.html:50
+msgid "Add line"
+msgstr "Ajouter une ligne"
+
+#: .\system\templates\invoices\list.html:6
+msgid "Back to dashboard"
+msgstr "Retour au tableau de bord"
+
+#: .\system\templates\invoices\list.html:11
+msgid "Search number or customer"
+msgstr "Rechercher par numéro ou client"
+
+#: .\system\templates\invoices\list.html:15
+msgid "All customers"
+msgstr "Tous les clients"
+
+#: .\system\templates\invoices\list.html:28
+msgid "Paid & unpaid"
+msgstr "Payées et impayées"
+
+#: .\system\templates\invoices\list.html:33
+#: .\system\templates\products\list.html:22
+msgid "Filter"
+msgstr "Filtrer"
+
+#: .\system\templates\invoices\list.html:34
+#: .\system\templates\products\list.html:24
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: .\system\templates\invoices\list.html:37
+msgid "No."
+msgstr "N°"
+
+#: .\system\templates\invoices\list.html:37
+msgid "Issue"
+msgstr "Date d’émission"
+
+#: .\system\templates\invoices\list.html:37
+msgid "Total"
+msgstr "Total"
+
+#: .\system\templates\invoices\list.html:47
+msgid "View"
+msgstr "Voir"
+
+#: .\system\templates\invoices\list.html:54
+msgid "Mark unpaid"
+msgstr "Marquer comme impayée"
+
+#: .\system\templates\invoices\list.html:58
+msgid "Mark paid"
+msgstr "Marquer comme payée"
+
+#: .\system\templates\invoices\pdf.html:35
+#: .\system\templates\invoices\pdf.html:57
+msgid "Contact Person:"
+msgstr "Personne de contact :"
+
+#: .\system\templates\invoices\pdf.html:36
+msgid "Org-nr:"
+msgstr "N° d’organisation :"
+
+#: .\system\templates\invoices\pdf.html:38
+#: .\system\templates\invoices\pdf.html:60
+msgid "Tel:"
+msgstr "Tél. :"
+
+#: .\system\templates\invoices\pdf.html:38
+#: .\system\templates\invoices\pdf.html:61
+msgid "E:"
+msgstr "E-mail :"
+
+#: .\system\templates\invoices\pdf.html:39
+#: .\system\templates\invoices\pdf.html:113
+msgid "IBAN:"
+msgstr "IBAN :"
+
+#: .\system\templates\invoices\pdf.html:40
+#: .\system\templates\invoices\pdf.html:112
+msgid "Swish:"
+msgstr "Swish :"
+
+#: .\system\templates\invoices\pdf.html:41
+#: .\system\templates\invoices\pdf.html:111
+msgid "Bankgiro:"
+msgstr "Bankgiro :"
+
+#: .\system\templates\invoices\pdf.html:45
+msgid "INVOICE"
+msgstr "FACTURE"
+
+#: .\system\templates\invoices\pdf.html:46
+msgid "No:"
+msgstr "N° :"
+
+#: .\system\templates\invoices\pdf.html:47
+msgid "Date:"
+msgstr "Date :"
+
+#: .\system\templates\invoices\pdf.html:48
+msgid "Due:"
+msgstr "Échéance :"
+
+#: .\system\templates\invoices\pdf.html:54
+msgid "BILL TO:"
+msgstr "FACTURER À :"
+
+#: .\system\templates\invoices\pdf.html:58
+msgid "VAT/Org-nr:"
+msgstr "TVA/N° d’organisation :"
+
+#: .\system\templates\invoices\pdf.html:70
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+#: .\system\templates\invoices\pdf.html:71
+msgid "Line Total"
+msgstr "Total ligne"
+
+#: .\system\templates\invoices\pdf.html:79
+msgid "Model:"
+msgstr "Modèle :"
+
+#: .\system\templates\invoices\pdf.html:92
+msgid "VMB-regeln tillämpas"
+msgstr "Règle VMB appliquée"
+
+#: .\system\templates\invoices\pdf.html:97
+msgid "Subtotal:"
+msgstr "Sous-total :"
+
+#: .\system\templates\invoices\pdf.html:99
+#, python-format
+msgid "VAT (%(rate)s%%):"
+msgstr "TVA (%(rate)s%%) :"
+
+#: .\system\templates\invoices\pdf.html:102
+msgid "TOTAL:"
+msgstr "TOTAL :"
+
+#: .\system\templates\invoices\pdf.html:105
+#, python-format
+msgid "Invoice %(num)s"
+msgstr "Facture %(num)s"
+
+#: .\system\templates\invoices\pdf.html:109
+msgid "Thank you for your business."
+msgstr "Merci pour votre confiance."
+
+# ───────────── Produits ─────────────
+#: .\system\templates\products\confirm_delete.html:3
+msgid "Delete Product"
+msgstr "Supprimer le produit"
+
+#: .\system\templates\products\confirm_delete.html:6
+#, python-format
+msgid "Delete “%(name)s”?"
+msgstr "Supprimer « %(name)s » ?"
+
+#: .\system\templates\products\confirm_delete.html:7
+msgid ""
+"Invoices that reference this item will keep their rows but show no product."
+msgstr ""
+"Les factures qui référencent cet article conserveront leurs lignes mais "
+"n’afficheront aucun produit."
+
+#: .\system\templates\products\dashboard.html:3
+#: .\system\templates\products\dashboard.html:7
+msgid "Product Dashboard"
+msgstr "Tableau de bord des produits"
+
+#: .\system\templates\products\dashboard.html:9
+#, python-format
+msgid "Total products: %(n)s"
+msgstr "Total produits : %(n)s"
+
+#: .\system\templates\products\dashboard.html:12
+msgid "Low Stock"
+msgstr "Stock faible"
+
+#: .\system\templates\products\dashboard.html:17
+#, python-format
+msgid "%(n)s left"
+msgstr "%(n)s restants"
+
+#: .\system\templates\products\dashboard.html:23
+msgid "Recently Added"
+msgstr "Récemment ajoutés"
+
+#: .\system\templates\products\dashboard.html:30
+#: .\system\templates\products\list.html:34
+msgid "Available"
+msgstr "Disponible"
+
+#: .\system\templates\products\dashboard.html:44
+msgid "No products yet."
+msgstr "Aucun produit pour le moment."
+
+#: .\system\templates\products\dashboard.html:48
+#: .\system\templates\products\list.html:3
+msgid "All Products"
+msgstr "Tous les produits"
+
+#: .\system\templates\products\dashboard.html:49
+#: .\system\templates\products\list.html:8
+msgid "Add Product"
+msgstr "Ajouter un produit"
+
+#: .\system\templates\products\form.html:7
+msgid "Back to Products"
+msgstr "Retour aux produits"
+
+#: .\system\templates\products\list.html:11
+msgid "Product Inventory"
+msgstr "Inventaire des produits"
+
+#: .\system\templates\products\list.html:14
+msgid "Search name / model"
+msgstr "Rechercher nom / modèle"
+
+#: .\system\templates\products\list.html:17
+msgid "Min price"
+msgstr "Prix min."
+
+#: .\system\templates\products\list.html:19
+msgid "Max price"
+msgstr "Prix max."
+
+#: .\system\templates\products\list.html:35
+msgid "Sell Price"
+msgstr "Prix de vente"
+
+#: .\system\templates\products\list.html:56
+msgid "No products found."
+msgstr "Aucun produit trouvé."
+
+#: .\system\templates\products\list.html:64
+#, python-format
+msgid "Page %(n)s of %(total)s"
+msgstr "Page %(n)s sur %(total)s"
+
+#: .\system\templates\registration\login.html:5
+msgid "Login"
+msgstr ""
+
+#: .\system\templates\registration\login.html:9
+#, fuzzy
+#| msgid "Log out"
+msgid "Log in"
+msgstr "Se déconnecter"
+
+#, python-format
+#~ msgid "Welcome!"
+#~ msgstr "Bienvenue"

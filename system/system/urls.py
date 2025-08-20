@@ -5,7 +5,7 @@ from .views.customer import (
 )
 from .views.product import ProductListView, ProductCreateView,ProductDeleteView, ProductUpdateView
 from .views.product import ProductDashboardView
-from django.urls import path
+from django.urls import path, include
 from .views.home import HomeView
 from django.contrib.auth import views as auth_views
 from .views.invoice import (
@@ -34,4 +34,5 @@ urlpatterns = [
     path("products/<int:pk>/delete/", ProductDeleteView.as_view(),name="product-delete"),
     path("invoices/<int:pk>/paid/",InvoiceTogglePaidView.as_view(),name="invoice-toggle-paid"),
     path("<int:pk>/send/", InvoiceSendView.as_view(), name="invoice-send"),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

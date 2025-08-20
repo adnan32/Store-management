@@ -1,17 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Invoices{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Invoices" %}{% endblock %}
 {% block content %}
   <div style="margin-bottom:1rem;">
-      <a href="{% url 'invoice-dashboard' %}" class="button">← Back to dashboard</a>
-      <a href="{% url 'invoice-add' %}" class="button" style="margin-left:.5rem;">➕ New invoice</a>
+      <a href="{% url 'invoice-dashboard' %}" class="button">← {% trans "Back to dashboard" %}</a>
+      <a href="{% url 'invoice-add' %}" class="button" style="margin-left:.5rem;">➕ {% trans "New invoice" %}</a>
   </div>
-<h2>📑 Invoices</h2>
+<h2>📑 {% trans "Invoices" %}</h2>
 <form method="get" class="filters" style="margin-bottom:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
-  <input type="text" name="q" placeholder="Search number or customer"
+  <input type="text" name="q" placeholder="{% trans 'Search number or customer' %}"
          value="{{ request.GET.q }}" style="flex:1 1 180px;">
 
   <select name="customer">
-      <option value="">All customers</option>
+      <option value="">{% trans "All customers" %}</option>
       {% for c in customers %}
         <option value="{{ c.id }}"
                 {% if request.GET.customer == c.id|stringformat:"s" %}selected{% endif %}>
@@ -24,17 +25,17 @@
   <input type="date" name="to"   value="{{ request.GET.to }}">
 
   <select name="paid">
-     <option value="">Paid &amp; unpaid</option>
-     <option value="yes" {% if request.GET.paid == "yes" %}selected{% endif %}>Paid</option>
-     <option value="no"  {% if request.GET.paid == "no"  %}selected{% endif %}>Unpaid</option>
+     <option value="">{% trans "Paid & unpaid" %}</option>
+     <option value="yes" {% if request.GET.paid == "yes" %}selected{% endif %}>{% trans "Paid" %}</option>
+     <option value="no"  {% if request.GET.paid == "no"  %}selected{% endif %}>{% trans "Unpaid" %}</option>
   </select>
 
-  <button class="button">Filter</button>
-  {% if request.GET %}<a href="{% url 'invoice-list' %}" class="button">Reset</a>{% endif %}
+  <button class="button">{% trans "Filter" %}</button>
+  {% if request.GET %}<a href="{% url 'invoice-list' %}" class="button">{% trans "Reset" %}</a>{% endif %}
 </form>
 <table>
-  <tr><th>No.</th><th>Customer</th><th>Issue</th><th>Total</th>      
-  <th>Paid</th><th></th></tr>
+  <tr><th>{% trans "No." %}</th><th>{% trans "Customer" %}</th><th>{% trans "Issue" %}</th><th>{% trans "Total" %}</th>
+  <th>{% trans "Paid" %}</th><th></th></tr>
   {% for inv in object_list %}
     <tr>
       <td>{{ inv.number }}</td>
@@ -43,25 +44,25 @@
       <td>{{ inv.total_inc_vat }} kr</td>
       <td>{% if inv.paid %}✅{% else %}❌{% endif %}</td>
       <td>
-        <a href="{% url 'invoice-detail' inv.pk %}" class="button">View</a>
-        <a href="{% url 'invoice-delete' inv.pk %}" class="button" style="margin-left:.5rem;">🗑 Delete</a>
+        <a href="{% url 'invoice-detail' inv.pk %}" class="button">{% trans "View" %}</a>
+        <a href="{% url 'invoice-delete' inv.pk %}" class="button" style="margin-left:.5rem;">🗑 {% trans "Delete" %}</a>
         <form action="{% url 'invoice-toggle-paid' inv.pk %}"
               method="post" style="display:inline;">
             {% csrf_token %}
             {% if inv.paid %}
                <button class="button is-warning" style="margin-left:.25rem;">
-                   Mark unpaid
+                   {% trans "Mark unpaid" %}
                </button>
             {% else %}
                <button class="button is-success" style="margin-left:.25rem;">
-                   Mark paid
+                   {% trans "Mark paid" %}
                </button>
             {% endif %}
         </form>
       </td>
     </tr>
   {% empty %}
-    <tr><td colspan="5">No invoices yet.</td></tr>
+    <tr><td colspan="5">{% trans "No invoices yet." %}</td></tr>
   {% endfor %}
 </table>
 {% endblock %}
